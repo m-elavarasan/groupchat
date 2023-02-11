@@ -12,5 +12,17 @@ export default {
     })
 
     return response.data
-  }
+  },
+  async handleLogout() {
+    try {
+      const response = await API.post('/logoutUser')
+    } catch (error) {
+      alert(error.response.data);
+    }
+    localStorage.removeItem("userData");
+    this.loggedIn = false;
+    window.location.reload();
+    console.log(localStorage.getItem("userData"));  
+
+  },
 }

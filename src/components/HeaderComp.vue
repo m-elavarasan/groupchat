@@ -31,12 +31,12 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="text-light">{{user.username}} </span>
+                <span class="text-light">{{userData.username}} </span>
                 <img src="@/assets/avatar.png" width="40vw" height="40vh" alt="user avatar" class="img-fluid rounded-circle ">
               </a>
               <div class="dropdown-menu" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">Sign Out</a>
+                <a class="dropdown-item" @click="handleLogout">Sign Out</a>
               </div>
             </li>
           </ul>
@@ -47,18 +47,24 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        user: {
-          username: 'Elavarasan',
-          about: 'Busy',
-        },
+import userAuth from '@/apiservice/userAuth'
+export default {
+  data() {
+    return {
+      userData: {}
+    };
+  },
+  methods: {
+    async handleLogout() {
+      try {
+        await userAuth.handleLogout();
+      } catch (error) {
+        console.error(error);
       }
     },
+  },
+  mounted() {
+    this.userData = JSON.parse(localStorage.getItem('userData')) || {};
   }
+};
 </script>
-
-<style lang="scss" scoped>
-
-</style>
