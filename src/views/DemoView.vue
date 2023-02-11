@@ -1,63 +1,59 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg fixed-top" style="background-color:#28364d;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href=""><img src="@/assets/quinbaylogo.png" width="150vw" height="50vh" alt="logo"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item active text-white">
-              <a class="nav-link text-light f-bold">Group Chat</a>
-            </li>
-            <li class="nav-item dropdown ">
-              <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Contacts
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Add Contact</a></li>
-                <li><a class="dropdown-item" href="#">Edit Contacts</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">View Contacts</a></li>
-              </ul>
-            </li>
-          </ul>
+    <HeaderComp></HeaderComp>
+    <!-- <div class="border-right" id="sidebar-wrapper"> -->
+    <div class="container">
+      <div class="row ">
+        <div class="col-3 bg-success">
+          <LeftBarComp></LeftBarComp>
         </div>
-        <ul class="navbar-nav ml-auto">
-
-          <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle text-light" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              
-            <span class="text-light">{{user.username}} </span>
-            <img src="@/assets/avatar.png" width="40vw" height="40vh" alt="user avatar" class="img-fluid rounded-circle ">
-            </a>
-            <div class="dropdown-menu" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="#">Profile</a>
-              <a class="dropdown-item" href="#">Sign Out</a>
-            </div>
-          </li>
-        </ul>
-        
-      </div>
-    </nav>
-  </div>
+          </div>
+       </div>
+       <div class="col-9" >
+          <MessageComp> </MessageComp>
+        </div>
+        </div>
 </template>
 
 <script>
 
-export default {
-  data() {
-    return {
-      user:{
-      username :'Elavarasan',
-      about:'Busy',
-
-    }
+import MessageComp from '@/components/MessageComp.vue'
+import HeaderComp from '@/components/HeaderComp.vue';
+import LeftBarComp from '@/components/LeftBarComp.vue'
+  export default {
+    components:{
+      MessageComp,
+      HeaderComp,
+      LeftBarComp
+    },
   }
-},
-}
 </script>
 
 <style lang="scss" scoped>
-
+  .col-3 {
+    background-color: #28364d;
+    position: fixed;
+    left: 0;
+    top: 10%;
+    height: 100vh;
+    width: 25%;
+    max-height: 100vh;
+    overflow-y: scroll;
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+  }
+  .col-9{
+    top: 10%; 
+    margin-left: 25%;
+    max-height: 100vh;
+    overflow-y: scroll;
+    width: 75%;
+    position: fixed;
+    margin-bottom: 5%;
+    background-color: lightcoral;
+  }
+  .container {
+    margin-bottom: 5%;
+    padding-bottom: 5%;
+  }
 </style>

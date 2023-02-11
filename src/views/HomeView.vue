@@ -22,4 +22,4 @@
   </div>
 </template>
 
-<script src="./homeView.js"></script>
+<script src="./js/homeView.js"></script>
