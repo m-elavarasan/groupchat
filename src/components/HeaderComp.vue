@@ -24,6 +24,7 @@
                 <li><a class="dropdown-item" href="#">View Contacts</a></li>
               </ul>
             </li>
+            <a class="nav-link text-info f-bold">About Me: {{userData.about}}</a>
           </ul>
           <div class="form-group p-2">
             <input type="text" class="form-control" placeholder="Search groups">
@@ -35,7 +36,8 @@
                 <img src="@/assets/avatar.png" width="40vw" height="40vh" alt="user avatar" class="img-fluid rounded-circle ">
               </a>
               <div class="dropdown-menu" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item"  @click="openUpdateModal(user)">Profile</a>
+                
                 <a class="dropdown-item" @click="handleLogout">Sign Out</a>
               </div>
             </li>
@@ -43,15 +45,23 @@
         </div>
       </div>
     </nav>
+    <update-modal :user="selectedUser" ref="updateModal"></update-modal>
+
   </div>
 </template>
 
 <script>
 import userAuth from '@/apiservice/userAuth'
+import UpdateModal from '@/modals/UpdateModal.vue'
 export default {
+  components:{
+    UpdateModal
+  },
   data() {
     return {
-      userData: {}
+      userData: {},
+      selectedUser: {},
+
     };
   },
   methods: {
@@ -61,6 +71,10 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+    openUpdateModal(user) {
+      this.selectedUser = user;
+      this.$refs.updateModal.open();
     },
   },
   mounted() {

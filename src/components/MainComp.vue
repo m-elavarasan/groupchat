@@ -4,7 +4,7 @@
     <!-- <div class="border-right" id="sidebar-wrapper"> -->
     <div class="container">
       <div class="row ">
-        <div class="col-3 bg-success">
+        <div class="col-3">
           <LeftBarComp></LeftBarComp>
         </div>
           </div>
@@ -53,7 +53,6 @@ import LeftBarComp from './LeftBarComp.vue';
     width: 75%;
     position: fixed;
     margin-bottom: 5%;
-    background-color: lightcoral;
   }
   .container {
     margin-bottom: 5%;
