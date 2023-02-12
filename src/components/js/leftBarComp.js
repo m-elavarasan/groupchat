@@ -1,23 +1,29 @@
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 
 export default {
-  data() {
-    return {
-
-      
-        };
-  },
   computed: {
-    ...mapGetters(['groups']),
+    ...mapGetters(["groups"]),
+    user() {
+      return JSON.parse(localStorage.getItem("userData"));
+    },
   },
   mounted() {
-    const user = JSON.parse(localStorage.getItem("userData"));
-    this.fetchGroups(user.userid);
+    this.fetchGroups(this.user.userid);
   },
   methods: {
-    ...mapActions(['fetchGroups']),
-    groupOnClick(id) {
-      console.log('Inside Group' + id);
+    ...mapActions(["fetchMessages"]),
+    ...mapActions(["fetchGroups"]),
+
+    async fetchMessages(groupId) {
+      console.log(this.user.userid);
+      try {
+        await this.getMessages({
+          groupId,
+          userId: this.user.userid,
+        });
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
