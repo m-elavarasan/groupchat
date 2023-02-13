@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userData: {},
+    groupData: {},
     groups: [],
     messages: [],
     selectedGroup:0,
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     totalPages: (state) => state.totalPages,
     totalItems: (state) => state.totalItems,
     SelectedGroup:(state)=>state.selectedGroup,
+    selectedGroupData:(state)=>state.groupData
   },
   mutations: {
     setUserData(state, userData) {
@@ -31,16 +33,19 @@ export default new Vuex.Store({
     setSelectedGroup(state, selectedGroup) {
       state.selectedGroup = selectedGroup;
     },
-    SET_GROUPS(state, groups) {
+    setGroups(state, groups) {
       state.groups = groups;
     },
-    SET_MESSAGES(state, messages) {
+    setMessage(state, messages) {
       state.messages = messages;
     },
-    SET_PAGINATION(state, pagination) {
+    setPagination(state, pagination) {
       state.currentPage = pagination.CurrentPage;
       state.totalPages = pagination.TotalPages;
       state.totalItems = pagination.TotalItems;
+    },
+    setGroupData(state, groupData) {
+      state.groupData = groupData;
     },
   },
   actions: {
@@ -52,7 +57,7 @@ export default new Vuex.Store({
     },
     async fetchGroups({ commit }, mobile) {
       const groups = await userGroups.fetchGroups(mobile);
-      commit("SET_GROUPS", groups);
+      commit("setGroups", groups);
     },
     async sendMessage({ commit }, payload) {
       try {
@@ -74,17 +79,27 @@ export default new Vuex.Store({
         userId,
         );
        console.log(data);
-      commit("SET_MESSAGES", data);
-      commit("SET_PAGINATION", data);
+      commit("setMessage", data);
+      commit("setPagination", data);
     },
     async getMessages({ commit }, payload) {
             try {
               const response = await userGroups.displaySpecific(payload.groupId, payload.userId);
-              commit('SET_MESSAGES', response.data);
+              commit('setMessage', response.data);
             } catch (error) {
               console.error(error);
             }
        },
+
+       async getGroupData({ commit}, selectedGroup) {
+        try {
+          console.log('Inside getGroup Action');
+          const response = await userGroups.fetchGroupMembers(selectedGroup);
+          commit("setGroupData", response);
+        } catch (error) {
+          console.error(error);
+        }
+      },
   },
   
 });

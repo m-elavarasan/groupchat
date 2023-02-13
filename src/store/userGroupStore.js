@@ -5,14 +5,14 @@ export default {
     groups: [],
   },
   mutations: {
-    SET_GROUPS(state, groups) {
+    setGroups(state, groups) {
       state.groups = groups;
     },
   },
   actions: {
     async fetchGroups({ commit }, mobile) {
       const groups = await userGroups.fetchGroups(mobile);
-      commit('SET_GROUPS', groups);
+      commit('setGroups', groups);
     },
   },
   getters: {

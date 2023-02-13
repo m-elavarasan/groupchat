@@ -47,4 +47,14 @@ async fetchFilesByGroup(groupId) {
     return error;
   }
 },
+async fetchGroupMembers(groupId) {
+  try{
+  const response = await API.get(`/displayAgroupMembers?groupid=`+ groupId);
+  return response.data;
+  }
+  catch (error) {
+    console.error(error);
+    return error;
+  }
+  },
 };

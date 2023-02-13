@@ -8,7 +8,7 @@
 //     messages: state => state.messages
 //   },
 //   mutations: {
-//     SET_MESSAGES(state, messages) {
+//     setMessage(state, messages) {
 //       state.messages = messages;
 //     },
 //   },
@@ -24,7 +24,7 @@
 //     async getMessages({ commit }, payload) {
 //       try {
 //         const response = await apiService.displaySpecific(payload.groupId, payload.userId);
-//         commit('SET_MESSAGES', response.data);
+//         commit('setMessage', response.data);
 //       } catch (error) {
 //         console.error(error);
 //       }

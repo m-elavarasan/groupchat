@@ -29,7 +29,7 @@ this.fetchGroups(this.user.userid);
 },
 methods: {
 ...mapActions(['getMessages']),
-...mapActions(['fetchGroups','setSelectedGroup']),
+...mapActions(['fetchGroups','setSelectedGroup','getGroupData']),
 
 async fetchMessages(groupId) {
   try {
@@ -38,8 +38,8 @@ async fetchMessages(groupId) {
       userId: this.user.userid,
     });
     localStorage.setItem('groupId', JSON.stringify(groupId))
-    
-    this.setSelectedGroup(groupId)
+    this.setSelectedGroup(groupId),
+    this.getGroupData(groupId)
   } catch (error) {
     console.error(error);
   }

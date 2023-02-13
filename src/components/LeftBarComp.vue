@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     ...mapActions(["fetchMessages"]),
-    ...mapActions(["fetchGroups"]),
+    ...mapActions(["fetchGroups","getGroupData"]),
 
     async fetchMessagesClick(groupId) {
       console.log('Page '+this.page,'Limit '+ this.limit,'userid '+this.user.userid,'groupid '+groupId);
@@ -45,6 +45,10 @@ export default {
         console.error(error);
       }
     },
+    selectGroup (groupId) {
+      this.$store.commit('setSelectedGroupId', groupId),
+      this.getGroupData()
+    }
   },
 };
 
