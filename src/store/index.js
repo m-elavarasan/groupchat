@@ -78,9 +78,17 @@ export default new Vuex.Store({
         groupId,
         userId,
         );
+        // console.log(response.data.TotalPages);
+        // console.log(response.data.CurrentPage);
        console.log(data);
       commit("setMessage", data);
       commit("setPagination", data);
+
+
+
+
+
+
     },
     async getMessages({ commit }, payload) {
             try {

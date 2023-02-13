@@ -16,7 +16,9 @@ export default {
   data() {
     return {
       page:1,
-      limit:10
+      limit:10,
+      totalPages:'1',
+
     }
   },
   computed: {
@@ -33,6 +35,7 @@ export default {
     ...mapActions(["fetchGroups","getGroupData"]),
 
     async fetchMessagesClick(groupId) {
+
       console.log('Page '+this.page,'Limit '+ this.limit,'userid '+this.user.userid,'groupid '+groupId);
       try {
         await this.fetchMessages({
