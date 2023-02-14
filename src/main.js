@@ -8,10 +8,12 @@ import "bootstrap/dist/js/bootstrap.js";
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import $ from 'jquery';
 window.$ = $;
+import Modal from '@/modals/Modal.vue'
 
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false;
+Vue.component('modal', Modal)
 
 new Vue({
   router,

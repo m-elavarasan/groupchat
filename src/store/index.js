@@ -72,7 +72,7 @@ export default new Vuex.Store({
       }
     },
     async fetchMessages({ commit }, { page, limit, groupId, userId }) {
-      const { data } = await userGroups.displayMessagePages(
+      const  data  = await userGroups.displayMessagePages(
         page,
         limit,
         groupId,
@@ -80,24 +80,18 @@ export default new Vuex.Store({
         );
         // console.log(response.data.TotalPages);
         // console.log(response.data.CurrentPage);
-       console.log(data);
-      commit("setMessage", data);
-      commit("setPagination", data);
-
-
-
-
-
-
+       console.log(data.data['Messages:']);
+      commit("setMessage",data.data['Messages:']);
+      commit("setPagination", data.data['Messages:']);
     },
-    async getMessages({ commit }, payload) {
-            try {
-              const response = await userGroups.displaySpecific(payload.groupId, payload.userId);
-              commit('setMessage', response.data);
-            } catch (error) {
-              console.error(error);
-            }
-       },
+      async getMessages({ commit }, payload) {
+              try {
+                const response = await userGroups.displaySpecific(payload.groupId, payload.userId);
+                commit('setMessage', response.data);
+              } catch (error) {
+                console.error(error);
+              }
+        },
 
        async getGroupData({ commit}, selectedGroup) {
         try {

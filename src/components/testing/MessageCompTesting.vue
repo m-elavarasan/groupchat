@@ -1,44 +1,27 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#FDE2C2">
-      <a class="navbar-brand ml-2" v-for="groupData in Object.keys(selectedGroupData).slice(0, 1)">{{
-        selectedGroupData[groupData].group.groupname
-      }}</a>
-      <!-- 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button> -->
-      <div class="navbar" id="navbarNav">
-        <span>User ID:</span>
-        <ul class="navbar-nav" v-for="groupData in Object.keys(selectedGroupData).slice(0, 1)">
-          <!-- <a class="nav-link">{{ selectedGroupData[groupData].group }}</a> -->
-          <li class="nav-item" v-for="member in selectedGroupData[groupData].group.members">
-            <a class="nav-link">{{ member.id }}</a>
-          </li>
-        </ul>
-      </div>
-      <!-- <button v-if="SelectedGroup" class="btn btn-primary" @click="">Refresh</button> -->
-    </nav>
-    <div class="d-flex align-items-start flex-column p-1 mb-1" style="overflow-y: auto;">
-      <div class="d-flex flex-column">
-        <h5 class="p-1">Available Files:</h5>
-        <div v-for="file in files" :key="file.id" class="p-1">
-          <a :href="file.url" class="btn btn-link">{{ file.name }}</a>
-        </div>
-      </div>
-      <ul class="list-group">
-        <div v-for="message in messages" :key="message.messageid"
-          :class="message.senderid !== user.userid ? 'justify-content-end d-flex p-1 m-1' : 'justify-content-start d-flex p-1 m-1'">
-          <div class="d-flex p-1 m-1"
-            :class="message.senderid !== user.userid ? 'rounded-pill bg-primary text-white' : 'rounded-pill bg-secondary text-white'">
-            <p class="m-1">{{ message.messagetext }}</p>
+    <div>
+      <ul class="list-group mb-5">
+          <li v-for="message in messages" class="list-group-item d-flex">
+            <div :class="{
+              'd-flex flex-column align-items-end': message.senderid === user.userid,
+              'd-flex flex-column align-items-start': message.senderid !== user.userid
+            }">
+              <div class="rounded p-2" :class="{
+                'bg-primary text-white': message.senderid === user.userid,
+                'bg-light': message.senderid !== user.userid
+              }">
+                <p class="mb-0">{{ message.messagetext }}</p>
+              </div>
+            <small class="text-muted mt-1">{{ message.timestamp }}</small>
+            <small class="text-muted">Sender ID: {{ message.senderid }}</small>
           </div>
-        </div>
+        </li>
       </ul>
     </div>
-    <form @submit.prevent="handleSendMessage" class="fixed-bottom p-2 bg-light">
+    <form @submit.prevent="sendMessage" class="fixed-bottom p-2 bg-light">
       <div class="d-flex justify-content-evenly">
-        <input type="text" class="form-control" v-model="messageText" placeholder="Enter your message..." />
+        <input type="text" class="form-control" v-model="userInputText" placeholder="Enter your message..." />
         <!-- <label class="btn btn-light"> -->
         <input type="file" ref="fileInput" @change="uploadFile" />
         <i class="fa fa-paperclip"></i>
@@ -50,77 +33,47 @@
 </template>
 
 <script>
-import {
-  mapGetters,
-  mapActions
-} from 'vuex'
-import userGroups from '@/apiservice/userGroups';
+import { mapGetters,mapActions } from "vuex";
 export default {
   data() {
     return {
-      messageText: '',
-      files: '',
-      btnShow: false
+      userInputText: '',
+      page: '1',
+      limit: '10',
+      totalPages:'2',
+      file: null
     }
   },
   computed: {
-    ...mapGetters(['messages', 'SelectedGroup', 'selectedGroupData']),
+    ...mapGetters(['messages','SelectedGroup']),
     user() {
       return JSON.parse(localStorage.getItem("userData"));
     },
   },
   methods: {
-    ...mapActions(['getMessages']),
-    uploadFile(event) {
-      const file = event.target.files[0];
-      userGroups.uploadFile(this.SelectedGroup, this.user.userid, file)
-        .then(response => {
-          console.log(response);
-          alert("File Uploaded");
-          this.fetchFile(this.SelectedGroup)
-        })
-        .catch(error => {
-          console.error(error);
+    ...mapActions(["fetchMessages"]),
+    async loadMore()
+    {
+      console.log('Page '+this.page,'Limit '+ this.limit,'userid '+this.user.userid,'groupid '+this.SelectedGroup);
+      try {
+        await this.fetchMessages({
+          page: this.page,
+          limit: this.limit,
+          groupId:this.SelectedGroup,
+          userId: this.user.userid
         });
-        this.$refs.fileupload.$refs.input.value = null
-    },
-    fetchFile(groupId) {
-      userGroups.fetchFilesByGroup(this.SelectedGroup).then((response) => {
-        this.files = response.data;
-      })
-    },
-    async handleSendMessage() {
-      if (this.messageText !== '') {
-        this.$store.dispatch('sendMessage', {
-          groupId: this.SelectedGroup,
-          senderId: this.user.userid,
-          messageText: this.messageText
-        });
-
-        console.log('User Message ' + this.messageText + this.user.userid + '' + this.SelectedGroup);
-        try {
-          await this.getMessages({
-            groupId: this.SelectedGroup,
-            userId: this.user.userid,
-          });
-        }
-        catch (error) {
-          console.error(error);
-        }
-        this.messageText = '';
-        // send the message and file to the server
+      } catch (error) {
+        console.error(error);
       }
-      else {
-        alert("Message Cannot be Empty")
-      }
+    },
+     uploadFile(event) {
+      this.file = event.target.files[0]
+    },
+    sendMessage() {
+      // send the message and file to the server
+      console.log('User Message ' + this.userInputText);
     },
   },
-  watch: {
-    SelectedGroup: function (SelectedGroup) {
-      // console.log("changed");
-      this.fetchFile(this.SelectedGroup)
-    },
-  }
 }
 </script>
 
@@ -159,3 +112,4 @@ export default {
   background-color: none;
 }
 </style>
+
