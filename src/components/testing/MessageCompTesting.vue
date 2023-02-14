@@ -1,18 +1,17 @@
 <template>
   <div>
-    <div>
-      <ul class="list-group mb-5">
-          <li v-for="message in messages" class="list-group-item d-flex">
-            <div :class="{
-              'd-flex flex-column align-items-end': message.senderid === user.userid,
-              'd-flex flex-column align-items-start': message.senderid !== user.userid
+    <div >
+        <li v-for="message in messages" class="list-group-item d-flex">
+          <div :class="{
+            'd-flex flex-column align-items-end': message.senderid === user.userid,
+            'd-flex flex-column align-items-start': message.senderid !== user.userid
+          }">
+            <div class="rounded p-2" :class="{
+              'bg-primary text-white': message.senderid === user.userid,
+              'bg-light': message.senderid !== user.userid
             }">
-              <div class="rounded p-2" :class="{
-                'bg-primary text-white': message.senderid === user.userid,
-                'bg-light': message.senderid !== user.userid
-              }">
-                <p class="mb-0">{{ message.messagetext }}</p>
-              </div>
+              <p class="mb-0">{{ message.messagetext }}</p>
+            </div>
             <small class="text-muted mt-1">{{ message.timestamp }}</small>
             <small class="text-muted">Sender ID: {{ message.senderid }}</small>
           </div>
@@ -33,40 +32,57 @@
 </template>
 
 <script>
-import { mapGetters,mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
       userInputText: '',
       page: '1',
       limit: '10',
-      totalPages:'2',
+      totalPages: '2',
       file: null
     }
   },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll)
+
+  },
   computed: {
-    ...mapGetters(['messages','SelectedGroup']),
+    ...mapGetters(['messages', 'SelectedGroup']),
     user() {
       return JSON.parse(localStorage.getItem("userData"));
     },
   },
   methods: {
     ...mapActions(["fetchMessages"]),
-    async loadMore()
-    {
-      console.log('Page '+this.page,'Limit '+ this.limit,'userid '+this.user.userid,'groupid '+this.SelectedGroup);
+    handleScroll: function(el) {
+        if((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
+        console.log("HandleScroll");
+        }
+    // handleScroll() {
+    //   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 5) {
+    //     if (this.messages.length <= this.totalItems) {
+    //       this.loadMore();
+    //     }
+    //     else {
+    //       console.log('EOD');
+    //     }
+    //   }
+    },
+    async loadMore() {
+      console.log('Page ' + this.page, 'Limit ' + this.limit, 'userid ' + this.user.userid, 'groupid ' + this.SelectedGroup);
       try {
         await this.fetchMessages({
           page: this.page,
           limit: this.limit,
-          groupId:this.SelectedGroup,
+          groupId: this.SelectedGroup,
           userId: this.user.userid
         });
       } catch (error) {
         console.error(error);
       }
     },
-     uploadFile(event) {
+    uploadFile(event) {
       this.file = event.target.files[0]
     },
     sendMessage() {

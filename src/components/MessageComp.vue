@@ -27,11 +27,10 @@
           <div class="d-flex p-1 m-1"
             :class="message.senderid == user.userid ? 'rounded-pill bg-primary text-white' : 'rounded-pill bg-secondary text-white'">
             <p class="m-1">{{ message.messagetext }}</p> 
-          </div>
-          <div class="text-muted mt-2 p-2">{{ message.timestamp }}</div>
-        </div>
-      </ul>
-             
+      </div>
+      <!-- <div class="text-muted">{{ message.timestamp }}</div> -->
+    </div>
+      </ul>      
     </div>
     <form @submit.prevent="handleSendMessage" class="fixed-bottom p-2 bg-light">
       <div class="d-flex justify-content-evenly">
