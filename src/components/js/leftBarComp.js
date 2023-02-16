@@ -1,6 +1,11 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  data() {
+    return {
+      groupid: "0",
+    };
+  },
   computed: {
     ...mapGetters(["groups"]),
     user() {
@@ -11,19 +16,20 @@ export default {
     this.fetchGroups(this.user.userid);
   },
   methods: {
-    ...mapActions(["fetchMessages"]),
-    ...mapActions(["fetchGroups"]),
-
-    async fetchMessages(groupId) {
-      console.log(this.user.userid);
-      try {
-        await this.getMessages({
-          groupId,
-          userId: this.user.userid,
-        });
-      } catch (error) {
+    ...mapActions(["fetchGroups","intialFetchMessages","getGroupData"],),
+   async getGroupMessage(groupId) {
+    try{
+        await this.intialFetchMessages({
+        groupId,
+        userId: this.user.userid,
+        }),
+        this.getGroupData(groupId)
+        localStorage.setItem('groupId', JSON.stringify(groupId))
+      }
+      catch (error) {
         console.error(error);
       }
     },
   },
+
 };

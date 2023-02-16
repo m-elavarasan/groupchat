@@ -23,6 +23,6 @@ export default {
     this.loggedIn = false;
     window.location.reload();
     console.log(localStorage.getItem("userData"));  
-
   },
+  
 }

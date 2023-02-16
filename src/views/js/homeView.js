@@ -25,7 +25,6 @@ export default {
     async submitLogin() {
       try {
         const userData = await userAuth.handleLogin(this.mobile, this.password)
-        console.log(userData);
         localStorage.setItem('userData', JSON.stringify(userData))
         this.setUserData(userData)
         this.isLoggedIn = true
@@ -34,8 +33,6 @@ export default {
         console.error(error)
       }
     },
-    ...mapActions([
-      'setUserData'
-    ])
+    ...mapActions(['setUserData'])
   },
 }

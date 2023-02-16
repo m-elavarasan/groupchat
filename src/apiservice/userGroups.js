@@ -3,31 +3,37 @@ import axios from "axios";
 const API = axios.create({
   baseURL: "http://localhost:8085",
 });
-
-export default {
-  async fetchGroups(mobile) {
-    try {
-      const response = await API.get(`/showGroup?mobilenum=${mobile}`);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
-  },
-  sendMessage(groupId, senderId, messageText) {
-    return API.post("/sendMessage", {
-      groupId,
-      senderId,
-      messageText,
-    });
-  },
-  displaySpecific(groupId, userId) {
-    return API.get(`/displaySpecific?groupid=${groupId}&userid=${userId}`);
-  },
-  displayMessagePages(page, limit, groupId, userId) {
-    return API.get(
-      `/displayMessagePages/${page}/${limit}?groupid=${groupId}&userid=${userId}`
-    );
+export default{
+async fetchGroups(mobile) {
+  try {
+    const response = await API.get(`/showGroup?mobilenum=${mobile}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+},
+displayMessagePages(page, limit, groupId, userId) {
+  return API.get(
+    `/displayMessagePages/${page}/${limit}?groupid=${groupId}&userid=${userId}`
+  );
+},
+sendMessage(groupId, senderId, messageText) {
+  return API.post("/sendMessage", {
+    groupId,
+    senderId,
+    messageText,
+  });
+},
+async fetchGroupMembers(groupId) {
+  try{
+  const response = await API.get(`/displayAgroupMembers?groupid=`+ groupId);
+  return response.data;
+  }
+  catch (error) {
+    console.error(error);
+    return error;
+  }
   },
   uploadFile(groupId, senderId, file) {
     const formData = new FormData();
@@ -47,14 +53,4 @@ async fetchFilesByGroup(groupId) {
     return error;
   }
 },
-async fetchGroupMembers(groupId) {
-  try{
-  const response = await API.get(`/displayAgroupMembers?groupid=`+ groupId);
-  return response.data;
-  }
-  catch (error) {
-    console.error(error);
-    return error;
-  }
-  },
-};
+}

@@ -1,14 +1,21 @@
 <template>
   <div>
-    <button @click="showModal = true">Show User Data </button>
-    <modal v-if="showModal" @close="showModal = false">
-      <h1>User Data</h1>
-      <p>Name: {{ user.name }}</p>
-      <p>Email: {{ user.email }}</p>
-      <p>Age: {{ user.age }}</p>
-      <p>Location: {{ user.location }}</p>
-      <button @click="showModal = false"> Close </button>
-    </modal>
+    <b-button v-b-modal.modal-prevent-closing>Open Modal</b-button>
+    <b-modal ok-title="Update" id="modal-prevent-closing" ref="modal" title="Update User"
+      @ok="handleOk">
+
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group label="User Id" label-for="userid-input">
+          <b-form-input id="userid"  v-model="userid" required disabled></b-form-input>
+        </b-form-group>
+        <b-form-group label="User Name" label-for="name-input">
+          <b-form-input id="username"  v-model="username"  required></b-form-input>
+        </b-form-group>
+        <b-form-group label="About" label-for="about-input">
+          <b-form-input id="about"  v-model="about" required></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
   </div>
 </template>
 
@@ -16,37 +23,38 @@
 export default {
   data() {
     return {
-      showModal: false,
-      user: {
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-        age: 30,
-        location: 'New York, NY'
-      }
+      userData:{},
+      userid:'',
+      username: '',
+      about:'',
+    }
+  },
+  computed: {
+    user(){
+      return JSON.parse(localStorage.getItem("userData"));
+    }
+  },
+  created() {
+      this.userid=this.user.userid,
+      this.username = this.user.username,
+      this.about= this.user.about
+  },
+  methods: {
+    resetModal() {
+      // this.userid='',
+      // this.username = '',
+      // this.about=''
+    },
+    handleOk(bvModalEvent) {
+      bvModalEvent.preventDefault()
+      this.handleSubmit()
+    },
+    handleSubmit() {
+      this.$nextTick(() => {
+        this.$bvModal.hide('modal-prevent-closing')
+      })
+      console.log(this.userid,this.username,this.about);
     }
   }
 }
 </script>
-
-<style>
-.modal {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  width: 50%;
-  height: 50%;
-  overflow: auto;
-}
-</style>

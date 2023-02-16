@@ -1,39 +1,22 @@
+
 <template>
   <div>
-    <HeaderComp></HeaderComp>
-    <!-- <div class="border-right" id="sidebar-wrapper"> -->
-    <div class="container">
-      <div class="row ">
-        <div class="col-3">
-          <LeftBarComp></LeftBarComp>
+    <HeaderComp/>
+  <div class="container">
+    <div class="row ">
+      <div class="col-3" >
+        <LeftBarComp></LeftBarComp>
+      </div>
         </div>
-          </div>
-       </div>
-       <div class="col-9" >
-          <MessageComp> </MessageComp>
-        </div>
-        </div>
+     </div>
+     <div class="col-9" ref="scrollContainer" @scroll="handleScroll">
+        <MessageComp> </MessageComp>
+      </div>
+      </div>
 </template>
-
-<script>
-import MessageComp from './MessageComp.vue';
-import HeaderComp from './HeaderComp.vue';
-import LeftBarComp from './LeftBarComp.vue';
-  export default {
-    components:{
-      MessageComp,
-      HeaderComp,
-      LeftBarComp
-    },
-    data() {
-      return {
-  }
-},
-}
-</script>
-
+<script src="./js/mainComp.js"/>
 <style lang="scss" scoped>
-  .col-3 {
+.col-3 {
     background-color: #28364d;
     position: fixed;
     left: 0;
@@ -48,11 +31,11 @@ import LeftBarComp from './LeftBarComp.vue';
   .col-9{
     top: 10%; 
     margin-left: 25%;
-    max-height: 100vh;
+    max-height: 95vh;
     overflow-y: scroll;
     width: 75%;
     position: fixed;
-    margin-bottom: 5%;
+    margin-bottom: 0%;
   }
   .container {
     margin-bottom: 5%;

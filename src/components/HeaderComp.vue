@@ -45,40 +45,7 @@
         </div>
       </div>
     </nav>
-    <update-modal :user="selectedUser" ref="updateModal"></update-modal>
-
+    <!-- <update-modal :user="selectedUser" ref="updateModal"></update-modal> -->
   </div>
 </template>
-
-<script>
-import userAuth from '@/apiservice/userAuth'
-import UpdateModal from '@/modals/UpdateModal.vue'
-export default {
-  components:{
-    UpdateModal
-  },
-  data() {
-    return {
-      userData: {},
-      selectedUser: {},
-
-    };
-  },
-  methods: {
-    async handleLogout() {
-      try {
-        await userAuth.handleLogout();
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    openUpdateModal(user) {
-      this.selectedUser = user;
-      this.$refs.updateModal.open();
-    },
-  },
-  mounted() {
-    this.userData = JSON.parse(localStorage.getItem('userData')) || {};
-  }
-};
-</script>
+<script src="./js/headerComp.js"/>

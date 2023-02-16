@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import userGroups from "@/apiservice/userGroups";
-import axios from "axios";
 
 Vue.use(Vuex);
 
@@ -11,27 +10,25 @@ export default new Vuex.Store({
     groupData: {},
     groups: [],
     messages: [],
-    selectedGroup:0,
-    currentPage: 0,
-    totalPages: 0,
-    totalItems: 0,
+    limit: 15,
+    page: 1,
+    currentPage: 1,
+    totalPages: 1,
+    groupId: 0,
+    userId: 0,
   },
   getters: {
     userData: (state) => state.userData,
     groups: (state) => state.groups,
     messages: (state) => state.messages,
-    currentPage: (state) => state.currentPage,
-    totalPages: (state) => state.totalPages,
-    totalItems: (state) => state.totalItems,
-    SelectedGroup:(state)=>state.selectedGroup,
-    selectedGroupData:(state)=>state.groupData
+    selectedGroupData: (state) => state.groupData,
   },
   mutations: {
     setUserData(state, userData) {
       state.userData = userData;
     },
-    setSelectedGroup(state, selectedGroup) {
-      state.selectedGroup = selectedGroup;
+    setGroupData(state, groupData) {
+      state.groupData = groupData;
     },
     setGroups(state, groups) {
       state.groups = groups;
@@ -39,69 +36,67 @@ export default new Vuex.Store({
     setMessage(state, messages) {
       state.messages = messages;
     },
+    updateMessage(state, messages) {
+      state.messages = [...state.messages, ...messages];
+    },
     setPagination(state, pagination) {
       state.currentPage = pagination.CurrentPage;
       state.totalPages = pagination.TotalPages;
-      state.totalItems = pagination.TotalItems;
-    },
-    setGroupData(state, groupData) {
-      state.groupData = groupData;
     },
   },
   actions: {
     setUserData({ commit }, userData) {
       commit("setUserData", userData);
     },
-    setSelectedGroup({commit}, selectedGroup){
-      commit("setSelectedGroup",selectedGroup)
-    },
     async fetchGroups({ commit }, mobile) {
       const groups = await userGroups.fetchGroups(mobile);
       commit("setGroups", groups);
     },
-    async sendMessage({ commit }, payload) {
-      try {
-        const response = await userGroups.sendMessage(
-          payload.groupId,
-          payload.senderId,
-          payload.messageText
+    async intialFetchMessages({ commit }, { groupId, userId }) {
+      this.state.page = 1;
+      console.log(this.state.page, this.state.limit, groupId, userId);
+      this.state.groupId = groupId;
+      this.state.userId = userId;
+      const data = await userGroups.displayMessagePages(
+        this.state.page,
+        this.state.limit,
+        groupId,
+        userId
+      );
+      console.log(data.data.TotalPages);
+      console.log(data.data.CurrentPage);
+      console.log(data.data["Messages:"]);
+      commit("setMessage", data.data["Messages:"]);
+      commit("setPagination", data.data);
+    },
+    async nextFetchMessages({ commit }) {
+      console.log("inside Next Fetch" + this.state.totalPages);
+      if (this.state.page <= this.state.totalPages) {
+        this.state.page= this.state.currentPage+1;
+        console.log(this.state.page,this.state.limit,this.state.groupId,this.state.userId);
+        const data = await userGroups.displayMessagePages(
+          this.state.page,
+          this.state.limit,
+          this.state.groupId,
+          this.state.userId
         );
+        console.log(data.data.TotalPages);
+        console.log(data.data.CurrentPage);
+        console.log(data.data["Messages:"]);
+        commit("updateMessage", data.data["Messages:"]);
+        commit("setPagination", data.data);
+      }
+    },
+    async getGroupData({ commit }) {
+      try {
+        console.log("Inside getGroup Action");
+        const response = await userGroups.fetchGroupMembers(this.state.groupId);
+        commit("setGroupData", response);
         console.log(response);
       } catch (error) {
         console.error(error);
       }
     },
-    async fetchMessages({ commit }, { page, limit, groupId, userId }) {
-      const  data  = await userGroups.displayMessagePages(
-        page,
-        limit,
-        groupId,
-        userId,
-        );
-        // console.log(response.data.TotalPages);
-        // console.log(response.data.CurrentPage);
-       console.log(data.data['Messages:']);
-      commit("setMessage",data.data['Messages:']);
-      commit("setPagination", data.data['Messages:']);
-    },
-      async getMessages({ commit }, payload) {
-              try {
-                const response = await userGroups.displaySpecific(payload.groupId, payload.userId);
-                commit('setMessage', response.data);
-              } catch (error) {
-                console.error(error);
-              }
-        },
-
-       async getGroupData({ commit}, selectedGroup) {
-        try {
-          console.log('Inside getGroup Action');
-          const response = await userGroups.fetchGroupMembers(selectedGroup);
-          commit("setGroupData", response);
-        } catch (error) {
-          console.error(error);
-        }
-      },
   },
-  
+  modules: {},
 });
