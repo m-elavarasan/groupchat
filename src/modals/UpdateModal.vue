@@ -1,8 +1,10 @@
 <template>
   <div>
       <div> 
-           <b-button v-b-modal.modal-prevent-closing>Open Modal</b-button>
-        <b-modal ok-title="Update" id="modal-prevent-closing" ref="modal" title="Update User"
+           <!-- <b-button v-b-modal.modal-prevent-closing>Open Modal</b-button> -->
+
+           
+        <b-modal ok-title="Update" id="user-update-modal" ref="modal" title="Update User"
       @ok="handleOk" @cancel="resetModal">
 
       <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -52,7 +54,7 @@ export default {
     },
     async handleSubmit() {
       this.$nextTick(() => {
-        this.$bvModal.hide('modal-prevent-closing')
+        this.$bvModal.hide('user-update-modal')
       })
       try{
       const userData=await userAuth.handleUpdate(this.userid, this.username,this.about)

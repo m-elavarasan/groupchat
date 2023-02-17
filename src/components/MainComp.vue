@@ -1,8 +1,14 @@
 <template>
   <div>
+<!-- Popups & Modals -->
+    <UpdateModal/>
+    <CreateGroupModal/>
+    <ListContactModal/>
+    <CreateContactModal/>
+    <ListGroupsModal/>
+
     <HeaderComp/>
-    <UpdateModalVue/>
-  <div class="container">
+    <div class="container">
     <div class="row ">
       <div class="col-3" >
         <LeftBarComp></LeftBarComp>

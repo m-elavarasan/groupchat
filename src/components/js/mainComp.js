@@ -2,7 +2,12 @@
 import HeaderComp from '@/components/HeaderComp.vue'
 import LeftBarComp from '@/components/LeftBarComp.vue'
 import MessageComp from '@/components/MessageComp.vue'
-import UpdateModalVue from '@/modals/UpdateModal.vue';
+import UpdateModal from '@/modals/UpdateModal.vue';
+import CreateGroupModal from '@/modals/CreateGroupModal.vue'
+import ListContactModal from '@/modals/ListContactModal.vue'
+import CreateContactModal from '@/modals/CreateContactModal.vue'
+import ListGroupsModal from '@/modals/ListGroupsModal.vue';
+
 import { mapActions } from "vuex";
 
   export default {
@@ -10,7 +15,11 @@ import { mapActions } from "vuex";
       HeaderComp,
       LeftBarComp,
       MessageComp,
-      UpdateModalVue
+      UpdateModal,
+      ListContactModal,
+      CreateGroupModal,
+      CreateContactModal,
+      ListGroupsModal,
     },
     data() {
       return {

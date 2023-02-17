@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import userGroups from "@/apiservice/userGroups";
+import userContact from "@/apiservice/userContact";
 
 Vue.use(Vuex);
 
@@ -10,6 +11,7 @@ export default new Vuex.Store({
     groupData: {},
     groups: [],
     messages: [],
+    contacts:[],
     limit: 10,
     page: 1,
     currentPage: 1,
@@ -21,6 +23,7 @@ export default new Vuex.Store({
     userData: (state) => state.userData,
     groups: (state) => state.groups,
     messages: (state) => state.messages,
+    contacts: (state)=>state.contacts,
     selectedGroupData: (state) => state.groupData,
   },
   mutations: {
@@ -32,6 +35,9 @@ export default new Vuex.Store({
     },
     setGroups(state, groups) {
       state.groups = groups;
+    },
+    setContacts(state, contacts) {
+      state.contacts = contacts;
     },
     setMessage(state, messages) {
       state.messages = messages;
@@ -47,6 +53,10 @@ export default new Vuex.Store({
   actions: {
     setUserData({ commit }, userData) {
       commit("setUserData", userData);
+    },
+    async fetchContacts({ commit }) {
+      const contacts = await userContact.fetchContact();
+      commit("setContacts", contacts);
     },
     async fetchGroups({ commit }, mobile) {
       const groups = await userGroups.fetchGroups(mobile);

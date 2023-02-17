@@ -12,16 +12,25 @@
               <a class="nav-link text-light f-bold">Group Chat</a>
             </li>
             <li class="nav-item dropdown ">
-              <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle text-light" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Contacts
                 </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Add Contact</a></li>
-                <li><a class="dropdown-item" href="#">Edit Contacts</a></li>
+                <li><a class="dropdown-item" v-b-modal.create-contact-modal>Add Contact</a></li>
+                <li><a class="dropdown-item" href="">Edit Contacts</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">View Contacts</a></li>
+                <li><a class="dropdown-item" v-b-modal.modal-scrollable>View Contacts</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown ">
+              <a class="nav-link dropdown-toggle text-light" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Groups
+                </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" v-b-modal.create-group-modal>Create Group</a></li>
+                <li><a class="dropdown-item" v-b-modal.modal-scrollable-list-group>List Groups</a></li>
               </ul>
             </li>
             <a class="nav-link text-info f-bold">About Me: {{userData.about}}</a>
@@ -36,7 +45,7 @@
                 <img src="@/assets/avatar.png" width="40vw" height="40vh" alt="user avatar" class="img-fluid rounded-circle ">
               </a>
               <div class="dropdown-menu" aria-labelledby="userDropdown">
-                <a class="dropdown-item" id="updateModal" @click="">Profile</a>
+                <a class="dropdown-item" id="updateModal" v-b-modal.user-update-modal>Profile</a>
                 
                 <a class="dropdown-item" @click="handleLogout">Sign Out</a>
               </div>
@@ -45,6 +54,9 @@
         </div>
       </div>
     </nav>
+
+
+
     <!-- <update-modal :user="selectedUser" ref="updateModal"></update-modal> -->
   </div>
 </template>
