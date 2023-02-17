@@ -2,6 +2,7 @@
 import HeaderComp from '@/components/HeaderComp.vue'
 import LeftBarComp from '@/components/LeftBarComp.vue'
 import MessageComp from '@/components/MessageComp.vue'
+import UpdateModalVue from '@/modals/UpdateModal.vue';
 import { mapActions } from "vuex";
 
   export default {
@@ -9,10 +10,12 @@ import { mapActions } from "vuex";
       HeaderComp,
       LeftBarComp,
       MessageComp,
+      UpdateModalVue
     },
     data() {
       return {
-        isLoading:false
+        isLoading:false,
+        isShowModal:false
       }
     },
     methods: {

@@ -1,13 +1,11 @@
 import userAuth from '@/apiservice/userAuth'
-// import UpdateModal from '@/modals/UpdateModal.vue'
 export default {
   components:{
-    // UpdateModal, 
-   },
+
+  },
   data() {
     return {
       userData: {},
-      selectedUser: {},
     };
   },
   methods: {
@@ -18,6 +16,10 @@ export default {
         console.error(error);
       }
     },
+    // openModalUpdate()
+    // {
+    //   this.showUpdate=true
+    // },
     // openUpdateModal() {
     //   this.selectedUser = this.userData;
     //   this.$refs.updateModal.open();

@@ -36,7 +36,7 @@
                 <img src="@/assets/avatar.png" width="40vw" height="40vh" alt="user avatar" class="img-fluid rounded-circle ">
               </a>
               <div class="dropdown-menu" aria-labelledby="userDropdown">
-                <a class="dropdown-item"  @click="openUpdateModal(user)">Profile</a>
+                <a class="dropdown-item" id="updateModal" @click="">Profile</a>
                 
                 <a class="dropdown-item" @click="handleLogout">Sign Out</a>
               </div>

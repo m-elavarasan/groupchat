@@ -1,50 +1,47 @@
 <template>
   <div>
-      <div> 
-           <b-button v-b-modal.modal-prevent-closing>Open Modal</b-button>
-        <b-modal ok-title="Update" id="modal-prevent-closing" ref="modal" title="Update User"
+    {{ userData  }}
+    <b-button v-b-modal.modal-prevent-closing>Open Modal</b-button>
+        <b-modal ok-title="Create" id="modal-prevent-closing" ref="modal" title="Create Group"
       @ok="handleOk" @cancel="resetModal">
-
       <form ref="form" @submit.stop.prevent="handleSubmit">
-        <b-form-group label="User Id" label-for="userid-input">
-          <b-form-input id="userid"  v-model="userid" required disabled></b-form-input>
+        <b-form-group label="Group Name" label-for="group-name">
+          <b-form-input id="groupname"  v-model="groupname" required disabled></b-form-input>
         </b-form-group>
-        <b-form-group label="User Name" label-for="name-input">
-          <b-form-input id="username"  v-model="username"  required></b-form-input>
+        <b-form-group label="Created By" label-for="created-by">
+          <b-form-input id="createby"  v-model="createdby"  required></b-form-input>
         </b-form-group>
-        <b-form-group label="About" label-for="about-input">
-          <b-form-input id="about"  v-model="about" required></b-form-input>
+        <b-form-group label="Users Id" label-for="user-id">
+          <b-form-input id="userid"  v-model="userid" required></b-form-input>
         </b-form-group>
       </form>
     </b-modal>
   </div>
-  </div>
 </template>
 
 <script>
-import userAuth from '../apiservice/userAuth'
+import { mapGetters } from 'vuex'
+import userGroups from '../apiservice/userGroups'
 export default {
   data() {
     return {
-      userData:{},
+      groupname:'',
+      createdby:'',
       userid:'',
-      username: '',
-      about:'',
     }
   },
   computed: {
-    user(){
-      return JSON.parse(localStorage.getItem("userData"));
-    }
+    ...mapGetters(["userData"]),
   },
   created() {
     this.resetModal()
   },
   methods: {
     resetModal() {
-      this.userid=this.user.userid,
-      this.username = this.user.username,
-      this.about= this.user.about
+      console.log(this.userData);
+      // this.userid=this.user.userid,
+      // this.username = this.user.username,
+      // this.about= this.user.about
     },
     handleOk(bvModalEvent) {
       bvModalEvent.preventDefault()

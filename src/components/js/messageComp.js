@@ -6,6 +6,7 @@ export default {
       messageText: "",
       files: "",
       btnShow: false,
+      group:''
     };
   },
   computed: {
@@ -13,8 +14,8 @@ export default {
     user() {
       return JSON.parse(localStorage.getItem("userData"));
     },
-    group() {
-      return JSON.parse(localStorage.getItem("groupId"));
+    id() {
+      return JSON.parse(localStorage.getItem("groupId"))
     },
   },
   methods: {
@@ -72,7 +73,7 @@ export default {
   watch: {
     selectedGroupData: function (selectedGroupData) {    
       this.fetchFile(localStorage.getItem("groupId"))
-
+      this.group=JSON.parse(localStorage.getItem("groupId"))
     },
   }
 };

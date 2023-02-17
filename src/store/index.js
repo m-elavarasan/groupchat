@@ -10,7 +10,7 @@ export default new Vuex.Store({
     groupData: {},
     groups: [],
     messages: [],
-    limit: 15,
+    limit: 10,
     page: 1,
     currentPage: 1,
     totalPages: 1,

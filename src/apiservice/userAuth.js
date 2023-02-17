@@ -13,6 +13,11 @@ export default {
 
     return response.data
   },
+  async handleUpdate(userid,username,about)
+  {
+    const response=await API.put(`/editUser?userid=${userid}&username=${username}&about=${about}`)
+    return response.data
+  },
   async handleLogout() {
     try {
       const response = await API.post('/logoutUser')
