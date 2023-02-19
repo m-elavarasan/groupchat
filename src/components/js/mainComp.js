@@ -7,6 +7,7 @@ import CreateGroupModal from '@/modals/CreateGroupModal.vue'
 import ListContactModal from '@/modals/ListContactModal.vue'
 import CreateContactModal from '@/modals/CreateContactModal.vue'
 import ListGroupsModal from '@/modals/ListGroupsModal.vue';
+import EditContactModal from '@/modals/EditContactModal.vue';
 
 import { mapActions } from "vuex";
 
@@ -20,6 +21,7 @@ import { mapActions } from "vuex";
       CreateGroupModal,
       CreateContactModal,
       ListGroupsModal,
+      EditContactModal,
     },
     data() {
       return {

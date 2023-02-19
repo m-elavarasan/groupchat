@@ -6,7 +6,7 @@
     <ListContactModal/>
     <CreateContactModal/>
     <ListGroupsModal/>
-
+    <EditContactModal/>
     <HeaderComp/>
     <div class="container">
     <div class="row ">

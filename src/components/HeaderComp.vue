@@ -17,7 +17,7 @@
                 </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" v-b-modal.create-contact-modal>Add Contact</a></li>
-                <li><a class="dropdown-item" href="">Edit Contacts</a></li>
+                <li><a class="dropdown-item" v-b-modal.edit-contact-modal>Edit Contacts</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
