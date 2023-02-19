@@ -46,7 +46,7 @@
   </form>
   </div>
   <div v-else>
-    <img src="@/assets/background.jpg" class="img-fluid rounded" style="background-size: cover;background-position: center center; opacity: 0.1;top:0; left: 0; bottom: 0; right: 0 ;overflow:hidden;">
+    <img src="@/assets/background.jpg" class="img-fluid" style="background-size:cover; opacity: 0.1;top:0; left: 0; bottom: 0; right: 0 ;overflow:hidden;">
     <!-- <div style="background-image: url('@/assets/background.jpg'); opacity: 0.1;  background-size: cover;"></div> -->
   </div>
 </template>
