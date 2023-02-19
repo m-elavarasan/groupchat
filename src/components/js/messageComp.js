@@ -6,20 +6,32 @@ export default {
       messageText: "",
       files: "",
       btnShow: false,
-      group:''
+      group:'',
+      showBase:false,
     };
   },
   computed: {
-    ...mapGetters(["messages","selectedGroupData"]),
+    ...mapGetters(["messages","selectedGroupData","userData"]),
     user() {
-      return JSON.parse(localStorage.getItem("userData"));
+      return this.userData.payload;
     },
     id() {
       return JSON.parse(localStorage.getItem("groupId"))
     },
   },
+  mounted() {
+    window.addEventListener("keyup", (event) => {
+      if (event.key === "Escape") {
+        console.log("Escape pressed")
+        this.showBase=false
+      }
+    })
+  },
+  destroyed() {
+    window.removeEventListener("keyup", this.handleEscapeKey);
+  },
   methods: {
-    ...mapActions(["intialFetchMessages"]),
+    ...mapActions(["intialFetchMessages","fetchGroups"]),
     uploadFile(event) {
       const file = event.target.files[0];
       userGroups
@@ -69,9 +81,24 @@ export default {
         console.error(error);
       }
     },
+    async delGroup(){
+      let text = "Are you sure to Delete \n Either Delete or Cancel.";
+      if (confirm(text) == true) {
+        try {
+          await userGroups.deleteGroup((this.group));
+          this.fetchGroups(this.user.userid)
+          localStorage.setItem('groupId', 0);
+          this.showBase=false
+        } catch (error) {
+          console.error(error);
+        }
+      } 
+    
+    }
   },
   watch: {
     selectedGroupData: function (selectedGroupData) {    
+      this.showBase=true
       this.fetchFile(localStorage.getItem("groupId"))
       this.group=JSON.parse(localStorage.getItem("groupId"))
     },

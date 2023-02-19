@@ -10,7 +10,6 @@ export default {
       mobileNum,
       password
     })
-
     return response.data
   },
   async handleUpdate(userid,username,about)

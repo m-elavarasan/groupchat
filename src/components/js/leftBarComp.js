@@ -1,5 +1,4 @@
 import { mapGetters, mapActions } from "vuex";
-
 export default {
   data() {
     return {
@@ -7,9 +6,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["groups"]),
+    ...mapGetters(["groups","userData"]),
     user() {
-      return JSON.parse(localStorage.getItem("userData"));
+      return this.userData.payload
+
     },
   },
   mounted() {

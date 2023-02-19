@@ -1,20 +1,27 @@
 <template>
   <div>
-    <b-modal id="modal-scrollable" ref="modal" scrollable title="List Contact">
-      <ul v-for="group in Object.keys(groups)">
+    <b-modal id="modal-scrollable" ref="modal" scrollable title="List Contact" hide-footer>
+      <ul v-for="contact in Object.keys(contacts)">
         <div class="list-group">
-          <a class="list-group-item">{{ groups[group].groupName }}</a>
+          <a class="list-group-item">{{ contacts[contact].mobilenum }}</a>
         </div>
-          </ul>
-  </b-modal>
+      </ul>
+    </b-modal>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters,mapActions } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['groups'])
+    ...mapGetters(['contacts'])
+  },
+  mounted() {
+      this.fetchContacts()
+  },
+  methods: {
+    ...mapActions(['fetchContacts']),
+
   },
   }
 </script>

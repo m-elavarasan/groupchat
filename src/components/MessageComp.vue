@@ -1,6 +1,7 @@
 <template>
-  <div style="margin-bottom: 15%;">
-    <nav class="navbar navbar-expand-lg navbar sticky-top" style="background-color:#f1f1f1">
+  <div style="margin-bottom: 15%;" v-if="showBase">
+    <nav class="navbar navbar-expand-lg navbar sticky-top" style="background-color:#85CDFD">
+      
       <a class="navbar-brand ml-2 " v-for="groupData in Object.keys(selectedGroupData).slice(0, 1)">{{
         selectedGroupData[groupData].group.groupname
       }}</a>
@@ -12,7 +13,9 @@
           </li>
         </ul>
       </div>
+      <button v-if="this.group" type="button" class="btn btn-danger fixed-right" @click="delGroup"> Delete Group</button>
     </nav>
+      
     <div class="d-flex flex-column p-1 mb-1" style="overflow-y: auto;">
       <div class="d-flex flex-column">
         <h5 class="p-1">Available Files:</h5>
@@ -41,6 +44,10 @@
       <button class="btn btn-primary">Send</button>
     </div>
   </form>
+  </div>
+  <div v-else>
+    <img src="@/assets/background.jpg" class="img-fluid rounded" style="background-size: cover;background-position: center center; opacity: 0.1;top:0; left: 0; bottom: 0; right: 0 ;overflow:hidden;">
+    <!-- <div style="background-image: url('@/assets/background.jpg'); opacity: 0.1;  background-size: cover;"></div> -->
   </div>
 </template>
 
