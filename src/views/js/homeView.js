@@ -30,6 +30,7 @@ export default {
         this.isLoggedIn = true
 
       } catch (error) {
+        alert(error.response.data)
         console.error(error)
       }
     },

@@ -25,6 +25,8 @@
 
 <script>
 import userAuth from '../apiservice/userAuth'
+import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -43,6 +45,7 @@ export default {
     this.resetModal()
   },
   methods: {
+    ...mapActions(['setUserData']),
     resetModal() {
       this.userid=this.user.userid,
       this.username = this.user.username,
@@ -58,9 +61,7 @@ export default {
       })
       try{
       const userData=await userAuth.handleUpdate(this.userid, this.username,this.about)
-      console.log(userData)
-      console.log(userData.data)
-      localStorage.setItem('userData', JSON.stringify(userData))
+      this.setUserData(userData)
       alert("Updated User");
       }
       catch (error) {
