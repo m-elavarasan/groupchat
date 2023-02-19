@@ -6,13 +6,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["groups","userData"]),
-    user() {
-      return this.userData.payload
-
-    },
+    ...mapGetters(["groups"]),
+    user(){
+      return JSON.parse(localStorage.getItem("userData"));
+    }
   },
   mounted() {
+    console.log("UserData"+ this.user.userid);
     this.fetchGroups(this.user.userid);
   },
   methods: {

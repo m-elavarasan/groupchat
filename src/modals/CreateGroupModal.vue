@@ -33,9 +33,12 @@ export default {
   },
   computed: {
     ...mapGetters(['userData', 'contacts']),
+    user(){
+      return JSON.parse(localStorage.getItem("userData"));
+    }
   },
   mounted() {
-    this.createdby = this.userData.payload.userid,
+    this.createdby = this.user.userid,
       this.fetchContacts()
   },
   created() {
