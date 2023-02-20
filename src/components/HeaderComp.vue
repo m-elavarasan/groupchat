@@ -35,9 +35,9 @@
             </li>
             <a class="nav-link text-info f-bold">About Me: {{userData.about}}</a>
           </ul>
-          <div class="form-group p-2">
+          <!-- <div class="form-group p-2">
             <input type="text" class="form-control" placeholder="Search groups">
-          </div>
+          </div> -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

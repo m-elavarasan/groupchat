@@ -3,12 +3,16 @@ export default {
   data() {
     return {
       groupid: "0",
+      searchQuery: '',
     };
   },
   computed: {
     ...mapGetters(["groups"]),
     user(){
       return JSON.parse(localStorage.getItem("userData"));
+    },
+    filteredGroups() {
+      return Object.values(this.groups).filter(group => group.groupName.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
   mounted() {
