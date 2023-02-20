@@ -1,6 +1,6 @@
 <template>
   <div style="margin-bottom: 15%;" v-if="showBase">
-    <nav class="navbar navbar-expand-lg navbar sticky-top" style="background-color:#85CDFD">
+    <nav class="navbar navbar-expand-lg navbar sticky-top" style="background-color:#f2f3f3">
       
       <a class="navbar-brand ml-2 " v-for="groupData in Object.keys(selectedGroupData).slice(0, 1)">{{
         selectedGroupData[groupData].group.groupname
