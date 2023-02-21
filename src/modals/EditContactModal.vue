@@ -27,11 +27,8 @@ export default {
     ...mapGetters(['contacts'])
   },
   mounted() {
-      this.fetchContacts()
   },
   methods: {
-    ...mapActions(['fetchContacts']),
-
     handleOk(bvModalEvent) {
       bvModalEvent.preventDefault()
       this.handleSubmit()

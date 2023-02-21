@@ -11,7 +11,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["messages","selectedGroupData","userData"]),
+    ...mapGetters(["messages","selectedGroupData"]),
     user() {
       return JSON.parse(localStorage.getItem("userData"));
     },

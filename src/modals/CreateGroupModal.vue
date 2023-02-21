@@ -38,14 +38,11 @@ export default {
     }
   },
   mounted() {
-    this.createdby = this.user.userid,
-      this.fetchContacts()
-  },
-  created() {
-
+    this.createdby = this.user.userid
+      // this.fetchContacts()
   },
   methods: {
-    ...mapActions(['fetchContacts','fetchGroups']),
+    ...mapActions(['fetchGroups']),
     resetModal() {
       this.userid = '',
         this.createdby = '',
