@@ -16,7 +16,8 @@ import fetchMessage from '@/mixins/fetchMessage'
 export default {
   mixins: [fetchMessage],
   computed: {
-    ...mapGetters(['groups'])
+    ...mapGetters(['groups']),
+    
   },
   methods: {
     

@@ -13,7 +13,7 @@ export default {
   computed: {
     ...mapGetters(["messages","selectedGroupData","userData"]),
     user() {
-      return this.userData.payload;
+      return JSON.parse(localStorage.getItem("userData"));
     },
     id() {
       return JSON.parse(localStorage.getItem("groupId"))

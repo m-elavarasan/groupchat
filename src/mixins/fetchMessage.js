@@ -1,8 +1,10 @@
-import { mapActions,mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['userData']),
+    user() {
+      return JSON.parse(localStorage.getItem("userData"));
+    },
   },
   methods: {
     ...mapActions(['intialFetchMessages','getGroupData']),
@@ -10,7 +12,7 @@ export default {
       try {
         await this.intialFetchMessages({
           groupId,
-          userId:this.userData.payload.userid
+          userId:this.user.userid
         })
         this.$refs.modal.hide()
         this.getGroupData(groupId)
