@@ -52,8 +52,15 @@ export default new Vuex.Store({
   },
   actions: {
     setUserData({ commit }, userData) {
-      commit("setUserData", userData);
+      commit("setUserData", userData)
     },
+
+
+
+
+
+
+    
     async fetchContacts({ commit }) {
       const contacts = await userContact.fetchContact();
       commit("setContacts", contacts);

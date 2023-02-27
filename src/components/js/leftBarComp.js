@@ -1,3 +1,4 @@
+import router from "@/router";
 import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
@@ -23,6 +24,7 @@ export default {
     ...mapActions(["fetchGroups","intialFetchMessages","getGroupData"],),
    async getGroupMessage(groupId) {
     try{
+      // router.push(`${groupId}`)
         await this.intialFetchMessages({
         groupId,
         userId: this.user.userid,
