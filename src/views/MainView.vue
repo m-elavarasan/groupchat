@@ -11,12 +11,13 @@
     <div class="container">
     <div class="row ">
       <div class="col-3" >
-        <LeftBarComp></LeftBarComp>
+        <LeftBarComp @fetchmsg="handleScroll()"></LeftBarComp>
       </div>
         </div>
      </div>
-     <div class="col-9" ref="scrollContainer" @scroll="handleScroll">
-        <MessageComp> </MessageComp>
+     <!-- <div class="col-9" ref="scrollContainer" @scroll="handleScroll"> -->
+      <div class="col-9" ref="scrollContainer">
+      <MessageComp> </MessageComp>
       </div>
       </div>
 </template>
@@ -46,5 +47,6 @@
   .container {
     margin-bottom: 5%;
     padding-bottom: 5%;
+    overflow:none;
   }
 </style>

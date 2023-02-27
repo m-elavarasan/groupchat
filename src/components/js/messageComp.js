@@ -11,7 +11,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["messages","selectedGroupData"]),
+    ...mapGetters(["messages","selectedGroupData","allMessages"]),
     user() {
       return JSON.parse(localStorage.getItem("userData"));
     },
@@ -70,17 +70,17 @@ export default {
         alert("Message Cannot be Empty");
       }
     },
-    async fetchMessages() {
-      console.log('Method Called');
-      try {
-        await this.intialFetchMessages(({
-          groupId:this.group,
-          userId: this.user.userid,
-          }));
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    // async fetchMessages() {
+    //   console.log('Method Called');
+    //   try {
+    //     await this.intialFetchMessages(({
+    //       groupId:this.group,
+    //       userId: this.user.userid,
+    //       }));
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // },
     async delGroup(){
       let text = "Are you sure to Delete \n Either Delete or Cancel.";
       if (confirm(text) == true) {

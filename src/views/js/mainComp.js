@@ -8,6 +8,7 @@ import ListContactModal from '@/modals/ListContactModal.vue'
 import CreateContactModal from '@/modals/CreateContactModal.vue'
 import ListGroupsModal from '@/modals/ListGroupsModal.vue';
 import EditContactModal from '@/modals/EditContactModal.vue';
+import fetchMessage from '@/mixins/fetchMessage'
 
 import { mapActions } from "vuex";
 
@@ -29,29 +30,40 @@ import { mapActions } from "vuex";
         isShowModal:false
       }
     },
+    mixins:[fetchMessage],
+    computed: {
+      // user() {
+      //   return JSON.parse(localStorage.getItem("userData"));
+      // },
+      // id() {
+      //   return JSON.parse(localStorage.getItem("groupId"))
+      // },
+    },
     methods: {
-      ...mapActions(["nextFetchMessages"]),
+      ...mapActions(["GETALLMESSAGE"]),
       handleScroll()
       {
-        const container = this.$refs.scrollContainer;
-        const containerHeight = container.offsetHeight;
-        const contentHeight = container.scrollHeight;
-        const scrollPosition = container.scrollTop;
-        console.log(containerHeight,scrollPosition,contentHeight, containerHeight+scrollPosition +1)
-        console.log(containerHeight + scrollPosition >= contentHeight);
-        if (containerHeight + scrollPosition + 1>= contentHeight && !this.isLoading) {        this.fetchMessages
-         console.log("inside if");
-         this.fetchMessages() 
-      }
+        this.getGroupMessage()
+        console.log("inside Emit");
+        // const container = this.$refs.scrollContainer;
+        // const containerHeight = container.offsetHeight;
+        // const contentHeight = container.scrollHeight;
+        // const scrollPosition = container.scrollTop;
+        // console.log(containerHeight,scrollPosition,contentHeight, containerHeight+scrollPosition +1)
+        // console.log(containerHeight + scrollPosition >= contentHeight);
+      //   if (containerHeight + scrollPosition + 1>= contentHeight && !this.isLoading) {
+          
+    
+      // }
     },
-      async fetchMessages() {
-        console.log('Method Called');
-        try {
-          await this.nextFetchMessages();
-          this.isLoading=false
-        } catch (error) {
-          console.error(error);
-        }
-      },
+      //  async fetchMessages() {
+      //   console.log('Method Called');
+      //     try{
+      //     await this.GETALLMESSAGE()
+      //     this.isLoading=false
+      //   } catch (error) {
+      //     console.error(error);
+      //   }
+      // },
     },
   }

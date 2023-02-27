@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    allMessages:[],
     userData: {},
     groupData: {},
     groups: [],
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     userId: 0,
   },
   getters: {
+    allMessages:(state)=> state.allMessages,
     userData: (state) => state.userData,
     groups: (state) => state.groups,
     messages: (state) => state.messages,
@@ -27,6 +29,9 @@ export default new Vuex.Store({
     selectedGroupData: (state) => state.groupData,
   },
   mutations: {
+    setAllMessage(state, allMessages) {
+      state.allMessages = allMessages;
+    },
     setUserData(state, userData) {
       state.userData = userData;
     },
@@ -56,11 +61,25 @@ export default new Vuex.Store({
     },
 
 
+    async GETALLMESSAGE({commit},{groupId,userId})
+    {
+      console.log('inside Get All Message Action');
+      const data = await userGroups.displayMessageAll(groupId,userId)
+      commit("setAllMessage", data.data);
+      this.state.groupId = groupId;
+      this.state.userId = userId;
+      },
 
 
 
 
-    
+
+
+
+
+
+
+
     async fetchContacts({ commit }) {
       const contacts = await userContact.fetchContact();
       commit("setContacts", contacts);

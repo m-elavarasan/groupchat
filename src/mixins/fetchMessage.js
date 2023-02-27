@@ -5,18 +5,22 @@ export default {
     user() {
       return JSON.parse(localStorage.getItem("userData"));
     },
+    id() {
+      return JSON.parse(localStorage.getItem("groupId"))
+    }
   },
   methods: {
-    ...mapActions(['intialFetchMessages','getGroupData']),
-    async getGroupMessage(groupId) {
+    ...mapActions(['intialFetchMessages','getGroupData','GETALLMESSAGE']),
+    async getGroupMessage() {
       try {
-        await this.intialFetchMessages({
-          groupId,
+        console.log("inside getGroupMessage");
+        await this.GETALLMESSAGE({
+          groupId:this.id,
           userId:this.user.userid
         })
-        this.$refs.modal.hide()
-        this.getGroupData(groupId)
-        localStorage.setItem('groupId', JSON.stringify(groupId))
+        // this.$refs.modal.hide()
+        this.getGroupData(this.id)
+        localStorage.setItem('groupId', JSON.stringify(this.id))
       } catch (error) {
         console.error(error)
       }

@@ -13,6 +13,11 @@ export default {
       return error;
     }
   },
+  displayMessageAll(groupId, userId) {
+    return API.get(
+      `displaySpecific?groupid=${groupId}&userid=${userId}`
+    );
+  },
   displayMessagePages(page, limit, groupId, userId) {
     return API.get(
       `/displayMessagePages/${page}/${limit}?groupid=${groupId}&userid=${userId}`
