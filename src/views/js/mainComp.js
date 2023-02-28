@@ -26,11 +26,43 @@ import { mapActions } from "vuex";
     data() {
       return {
         isLoading:false,
-        isShowModal:false
+        isShowModal:false,
+        currentPage:1,
+        totalPage:1,
       }
     },
+    computed: {
+      user(){
+        return JSON.parse(localStorage.getItem("userData"));
+      },
+    },
+    mounted() {
+      this.$store.dispatch("fetchContacts",{
+        success: (res)=>{
+        console.log("msg fetch success");
+      },
+      fail:(res)=>{
+        console.log("Error in fetch Message");
+      }
+    })
+    },
     methods: {
-      ...mapActions(["nextFetchMessages"]),
+      fetchmsg(groupId){
+        console.log('Emit works ' + groupId +' '+ this.user.userid);
+        this.$store.dispatch("FETCHALLMSG", {
+          data: {
+            groupid: groupId,
+            userid: this.user.userid,
+          },
+          success: (res)=>{
+            console.log("msg fetch success");
+          },
+          fail:(res)=>{
+            console.log("Error in fetch Message");
+          },
+      
+        })
+      },
       handleScroll()
       {
         const container = this.$refs.scrollContainer;
@@ -39,19 +71,19 @@ import { mapActions } from "vuex";
         const scrollPosition = container.scrollTop;
         console.log(containerHeight,scrollPosition,contentHeight, containerHeight+scrollPosition +1)
         console.log(containerHeight + scrollPosition >= contentHeight);
-        if (containerHeight + scrollPosition + 1>= contentHeight && !this.isLoading) {        this.fetchMessages
-         console.log("inside if");
-         this.fetchMessages() 
+        if (containerHeight + scrollPosition + 1>= contentHeight && !this.isLoading) {      
+        console.log("inside if");
+        //  this.fetchMessages() 
       }
     },
-      async fetchMessages() {
-        console.log('Method Called');
-        try {
-          await this.nextFetchMessages();
-          this.isLoading=false
-        } catch (error) {
-          console.error(error);
-        }
-      },
+    //   async fetchMessages() {
+    //     console.log('Method Called');
+    //     try {
+    //       await this.nextFetchMessages();
+    //       this.isLoading=false
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   },
     },
   }

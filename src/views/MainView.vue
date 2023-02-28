@@ -5,18 +5,18 @@
     <CreateGroupModal/>
     <ListContactModal/>
     <CreateContactModal/>
-    <ListGroupsModal/>
+    <ListGroupsModal @fetchmsg="fetchmsg"/>
     <EditContactModal/>
     <HeaderComp/>
     <div class="container">
     <div class="row ">
       <div class="col-3" >
-        <LeftBarComp></LeftBarComp>
+        <LeftBarComp @fetchmsg="fetchmsg"></LeftBarComp>
       </div>
         </div>
      </div>
-     <div class="col-9" ref="scrollContainer" @scroll="handleScroll">
-        <MessageComp> </MessageComp>
+     <div class="col-9" ref="scrollContainer">
+        <MessageComp @fetchmsg="fetchmsg"> </MessageComp>
       </div>
       </div>
 </template>

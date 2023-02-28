@@ -32,7 +32,7 @@
       </div>
   <div id="msgcont" class="mb-10">
     <ul class="list-group m-10">
-      <div v-for="message in messages"
+      <div v-for="message in allMsg"
         :class="message.senderid == user.userid ? 'justify-content-end d-flex p-1 m-1' : 'justify-content-start d-flex p-1 m-1'">
         <small class="text-muted text-muted mt-2 p-2">User:{{message.senderid}}</small>
         <div class="d-flex p-1 m-1"

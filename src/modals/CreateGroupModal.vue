@@ -56,13 +56,11 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide('create-group-modal')
       })
-      try {
-        const response = await userGroups.createGroup(this.groupname, this.createdby, this.selectedMembers)
-        console.log('Group '+ this.groupname+ ' Created')
-        this.fetchGroups(this.createdby);
-      } catch (error) {
-        console.error(error)
-      }
+     userGroups.createGroup(this.groupname, this.createdby, this.selectedMembers,{
+      success:(response)=>{console.log('Group '+ this.groupname+ ' Created')
+        this.fetchGroups(this.createdby)},
+      fail:(err)=>{ console.error(error)}      
+     })
     },
   }
 }

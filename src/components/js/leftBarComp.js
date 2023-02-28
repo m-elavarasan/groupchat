@@ -1,5 +1,6 @@
 import router from "@/router";
 import { mapGetters, mapActions } from "vuex";
+import fetchMessage from "@/mixins/fetchMessage";
 export default {
   data() {
     return {
@@ -7,12 +8,14 @@ export default {
       searchQuery: '',
     };
   },
+  mixins:[fetchMessage],
   computed: {
     ...mapGetters(["groups"]),
     user(){
       return JSON.parse(localStorage.getItem("userData"));
     },
     filteredGroups() {
+
       return Object.values(this.groups).filter(group => group.groupName.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
@@ -21,28 +24,33 @@ export default {
     this.fetchGroups({
       mobile: this.user.userid,
       success: (groups) => {
-        localStorage.setItem('groupId', JSON.stringify(groupId))
-      },
+        console.log('User Group Fetch successfull');
+            },
       fail: (error) => {
         console.error(error);
       }
     });
       },
   methods: {
-    ...mapActions(["fetchGroups","intialFetchMessages","getGroupData"],),
+    // ...mapActions(["fetchGroups"],),
    async getGroupMessage(groupId) {
-    try{
-      // router.push(`${groupId}`)
-        await this.intialFetchMessages({
-        groupId,
-        userId: this.user.userid,
-        }),
-        this.getGroupData(groupId)
-        localStorage.setItem('groupId', JSON.stringify(groupId))
-      }
-      catch (error) {
-        console.error(error);
-      }
+    this.$emit('fetchmsg',groupId)
+    localStorage.setItem('groupId', JSON.stringify(groupId))
+    this.$store.dispatch("GETGROUPDATA", {groupId})
+
+
+    // try{
+    //   // router.push(`${groupId}`)
+    //     await this.intialFetchMessages({
+    //     groupId,
+    //     userId: this.user.userid,
+    //     }),
+    //     this.getGroupData(groupId)
+    //     localStorage.setItem('groupId', JSON.stringify(groupId))
+    //   }
+    //   catch (error) {
+    //     console.error(error);
+    //   }
     },
   },
 

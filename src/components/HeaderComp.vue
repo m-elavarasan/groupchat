@@ -33,7 +33,7 @@
                 <li><a class="dropdown-item" v-b-modal.modal-scrollable-list-group>List Groups</a></li>
               </ul>
             </li>
-            <a class="nav-link text-info f-bold">About Me: {{userData.about}}</a>
+            <a class="nav-link text-info f-bold">About Me: {{userData.about | toUpper}}</a>
           </ul>
           <!-- <div class="form-group p-2">
             <input type="text" class="form-control" placeholder="Search groups">
@@ -41,7 +41,7 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="text-light">{{userData.username}} </span>
+                <span class="text-light">{{userData.username | toUpper}} </span>
                 <img src="@/assets/avatar.png" width="40vw" height="40vh" alt="user avatar" class="img-fluid rounded-circle ">
               </a>
               <div class="dropdown-menu" aria-labelledby="userDropdown">

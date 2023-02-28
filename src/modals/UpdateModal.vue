@@ -59,7 +59,7 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide('user-update-modal')
       })
-      this.$store.dispatch("AUTH_USER", {
+      this.$store.dispatch("UPDATE_USER", {
         success: this.onSuccess,
       fail: this.onFail,
       data: {
@@ -70,14 +70,11 @@ export default {
     });
   },
   onSuccess(data) {
-    console.log("inside on onSucces");
-    localStorage.setItem("isLogined", true);
-    console.log(data);
-    this.$router.push({ name: "home" });
+    console.log("data");
+    
   },
   onFail(err) {
-    console.log("inside on onLogin");
-    localStorage.setItem("isLogined", false);
+    console.log(err);
   },
 
 

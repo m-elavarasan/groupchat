@@ -9,7 +9,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 Vue.config.productionTip = false
-
+Vue.filter('toUpper', function (value) {
+  if (!value) return ''
+  value = value.toString()
+  return value.toUpperCase() 
+})
 Vue.use(BootstrapVue)
 new Vue({
   router,
