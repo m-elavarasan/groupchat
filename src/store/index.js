@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import userGroups from "@/apiservice/userGroups";
 import userContact from "@/apiservice/userContact";
+import userAuth from "@/apiservice/userAuth";
 
 Vue.use(Vuex);
 
@@ -51,62 +52,120 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    setUserData({ commit }, userData) {
-      commit("setUserData", userData);
-    },
-    async fetchContacts({ commit }) {
-      const contacts = await userContact.fetchContact();
-      commit("setContacts", contacts);
-    },
-    async fetchGroups({ commit }, mobile) {
-      const groups = await userGroups.fetchGroups(mobile);
-      commit("setGroups", groups);
-    },
-    async intialFetchMessages({ commit }, { groupId, userId }) {
-      this.state.page = 1;
-      console.log(this.state.page, this.state.limit, groupId, userId);
-      this.state.groupId = groupId;
-      this.state.userId = userId;
-      const data = await userGroups.displayMessagePages(
-        this.state.page,
-        this.state.limit,
-        groupId,
-        userId
-      );
-      console.log(data.data.TotalPages);
-      console.log(data.data.CurrentPage);
-      console.log(data.data["Messages:"]);
-      commit("setMessage", data.data["Messages:"]);
-      commit("setPagination", data.data);
-    },
-    async nextFetchMessages({ commit }) {
-      console.log("inside Next Fetch" + this.state.totalPages);
-      if (this.state.page <= this.state.totalPages) {
-        this.state.page= this.state.currentPage+1;
-        console.log(this.state.page,this.state.limit,this.state.groupId,this.state.userId);
-        const data = await userGroups.displayMessagePages(
-          this.state.page,
-          this.state.limit,
-          this.state.groupId,
-          this.state.userId
-        );
-        console.log(data.data.TotalPages);
-        console.log(data.data.CurrentPage);
-        console.log(data.data["Messages:"]);
-        commit("updateMessage", data.data["Messages:"]);
-        commit("setPagination", data.data);
-      }
-    },
-    async getGroupData({ commit }) {
-      try {
-        console.log("Inside getGroup Action");
-        const response = await userGroups.fetchGroupMembers(this.state.groupId);
-        commit("setGroupData", response);
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    // setUserData({ commit }, userData) {
+    //   commit("setUserData", userData)
+    // },
+    AUTH_USER({commit},{success,fail,data}){
+      userAuth.handleLogin({
+          data,
+          success: (res) => {
+            console.log(" AUTH_USER success")
+            localStorage.setItem('userData',JSON.stringify(res.data))
+            commit("setUserData", res.data)
+            
+            success(res.data)
+          },
+          fail: (err) => {
+            fail(err)
+            localStorage.setItem("isLogined", false)
+          }
+        })
+      },
+      async fetchContacts({ commit }, { success, fail }) {
+        userContact.fetchContact()
+          .then((contacts) => {
+            commit("setContacts", contacts);
+            success(contacts);
+          })
+          .catch((error) => {
+            fail(error);
+          });
+      },
+      
+      async fetchGroups({ commit }, { success, fail, mobile }) {
+        userGroups.fetchGroups(mobile)
+          .then((groups) => {
+            commit("setGroups", groups);
+            success(groups);
+          })
+          .catch((error) => {
+            fail(error);
+          });
+      },
+      
+      async intialFetchMessages({ commit }, { success, fail, groupId, userId }) {
+        this.state.page = 1;
+        this.state.groupId = groupId;
+        this.state.userId = userId;
+        userGroups.displayMessagePages(this.state.page, this.state.limit, groupId, userId)
+          .then((data) => {
+            commit("setMessage", data.data["Messages:"]);
+            commit("setPagination", data.data);
+            success(data.data["Messages:"]);
+          })
+          .catch((error) => {
+            fail(error);
+          });
+      }      
+
+
+
+
+
+    
+  //   async fetchContacts({ commit }) {
+  //     const contacts = await userContact.fetchContact();
+  //     commit("setContacts", contacts);
+  //   },
+  //   async fetchGroups({ commit }, mobile) {
+  //     const groups = await userGroups.fetchGroups(mobile);
+  //     commit("setGroups", groups);
+  //   },
+  //   async intialFetchMessages({ commit }, { groupId, userId }) {
+  //     this.state.page = 1;
+  //     console.log(this.state.page, this.state.limit, groupId, userId);
+  //     this.state.groupId = groupId;
+  //     this.state.userId = userId;
+  //     const data = await userGroups.displayMessagePages(
+  //       this.state.page,
+  //       this.state.limit,
+  //       groupId,
+  //       userId
+  //     );
+  //     console.log(data.data.TotalPages);
+  //     console.log(data.data.CurrentPage);
+  //     console.log(data.data["Messages:"]);
+  //     commit("setMessage", data.data["Messages:"]);
+  //     commit("setPagination", data.data);
+  //   },
+  //   async nextFetchMessages({ commit }) {
+  //     console.log("inside Next Fetch" + this.state.totalPages);
+  //     if (this.state.page <= this.state.totalPages) {
+  //       this.state.page= this.state.currentPage+1;
+  //       console.log(this.state.page,this.state.limit,this.state.groupId,this.state.userId);
+  //       const data = await userGroups.displayMessagePages(
+  //         this.state.page,
+  //         this.state.limit,
+  //         this.state.groupId,
+  //         this.state.userId
+  //       );
+  //       console.log(data.data.TotalPages);
+  //       console.log(data.data.CurrentPage);
+  //       console.log(data.data["Messages:"]);
+  //       commit("updateMessage", data.data["Messages:"]);
+  //       commit("setPagination", data.data);
+  //     }
+  //   },
+  //   async getGroupData({ commit }) {
+  //     try {
+  //       console.log("Inside getGroup Action");
+  //       const response = await userGroups.fetchGroupMembers(this.state.groupId);
+  //       commit("setGroupData", response);
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   },
   },
   modules: {},
 });

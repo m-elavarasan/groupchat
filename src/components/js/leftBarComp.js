@@ -1,3 +1,4 @@
+import router from "@/router";
 import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
@@ -17,12 +18,21 @@ export default {
   },
   mounted() {
     console.log("UserData"+ this.user.userid);
-    this.fetchGroups(this.user.userid);
-  },
+    this.fetchGroups({
+      mobile: this.user.userid,
+      success: (groups) => {
+        localStorage.setItem('groupId', JSON.stringify(groupId))
+      },
+      fail: (error) => {
+        console.error(error);
+      }
+    });
+      },
   methods: {
     ...mapActions(["fetchGroups","intialFetchMessages","getGroupData"],),
    async getGroupMessage(groupId) {
     try{
+      // router.push(`${groupId}`)
         await this.intialFetchMessages({
         groupId,
         userId: this.user.userid,

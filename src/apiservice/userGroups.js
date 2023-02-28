@@ -3,80 +3,55 @@ import axios from "axios";
 const API = axios.create({
   baseURL: "http://localhost:8085",
 });
+
 export default {
-  async fetchGroups(mobile) {
-    try {
-      const response = await API.get(`/showGroup?mobilenum=${mobile}`);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
+  fetchGroups(mobile, success, fail) {
+    API.get(`/showGroup?mobilenum=${mobile}`)
+      .then((response) => success(response.data))
+      .catch((error) => fail(error));
   },
-  displayMessagePages(page, limit, groupId, userId) {
-    return API.get(
-      `/displayMessagePages/${page}/${limit}?groupid=${groupId}&userid=${userId}`
-    );
+  displayMessagePages(page, limit, groupId, userId, success, fail) {
+    API.get(`/displayMessagePages/${page}/${limit}?groupid=${groupId}&userid=${userId}`)
+      .then((response) => success(response.data))
+      .catch((error) => fail(error));
   },
-  sendMessage(groupId, senderId, messageText) {
-    return API.post("/sendMessage", {
-      groupId,
-      senderId,
-      messageText,
-    });
+  sendMessage(groupId, senderId, messageText, success, fail) {
+    API.post("/sendMessage", { groupId, senderId, messageText })
+      .then((response) => success(response.data))
+      .catch((error) => fail(error));
   },
-  async fetchGroupMembers(groupId) {
-    try {
-      const response = await API.get(
-        `/displayAgroupMembers?groupid=` + groupId
-      );
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
+  fetchGroupMembers(groupId, success, fail) {
+    API.get(`/displayAgroupMembers?groupid=${groupId}`)
+      .then((response) => success(response.data))
+      .catch((error) => fail(error));
   },
-  uploadFile(groupId, senderId, file) {
+  uploadFile(groupId, senderId, file, success, fail) {
     const formData = new FormData();
     formData.append("file", file);
-    return API.post(
-      `/sendFile?groupid=${groupId}&senderid=${senderId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    API.post(`/sendFile?groupid=${groupId}&senderid=${senderId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => success(response.data))
+      .catch((error) => fail(error));
   },
-  async fetchFilesByGroup(groupId) {
-    try {
-      const response = await API.get(`/FilesByGroupid?groupid=${groupId}`);
-      return response;
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
+  fetchFilesByGroup(groupId, success, fail) {
+    API.get(`/FilesByGroupid?groupid=${groupId}`)
+      .then((response) => success(response.data))
+      .catch((error) => fail(error));
   },
-  async createGroup(groupname, createdby, userid) {
-    try {
-      const response = await API.post(
-        `/createGroup?groupname=${groupname}&createdby=${createdby}&userid=${userid}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
+  createGroup(groupname, createdby, userid, success, fail) {
+    API.post(`/createGroup?groupname=${groupname}&createdby=${createdby}&userid=${userid}`)
+      .then((response) => success(response.data))
+      .catch((error) => fail(error));
   },
-  async deleteGroup(groupId) {
-    try {
-      const response = await API.delete(`/deleteGroup?groupid=${groupId}`);
-      return response.data,
-      console.log(groupId +'Deleted Successfully')
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
+  deleteGroup(groupId, success, fail) {
+    API.delete(`/deleteGroup?groupid=${groupId}`)
+      .then(() => {
+        success();
+        console.log(groupId + " Deleted Successfully");
+      })
+      .catch((error) => fail(error));
   },
 };

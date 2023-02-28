@@ -17,7 +17,14 @@ export default {
     ...mapGetters(['contacts'])
   },
   mounted() {
-      this.fetchContacts()
+    this.fetchContacts({
+  success: (contacts) => {
+    console.log("Contacts fetched successfully", contacts);
+  },
+  fail: (error) => {
+    console.error("Error fetching contacts", error);
+  }
+});
   },
   methods: {
     ...mapActions(['fetchContacts']),

@@ -3,33 +3,37 @@ import axios from "axios";
 const API = axios.create({
   baseURL: "http://localhost:8082",
 });
-export default{
-  async fetchContact() {
-    try {
-      const response = await API.get('/displayContacts');
-      console.log(response.data)
-      return response.data
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
+
+export default {
+  async fetchContact({ success, fail }) {
+    API.get('/displayContacts')
+      .then((response) => {
+        console.log(response.data)
+        success(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        fail(error);
+      });
   },
-  async createContact(phone) {
-    try {
-      const response = await API.post(`/addUser?mobilenum=${phone}`);
-      return response.data
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
+  async createContact({ success, fail, phone }) {
+    API.post(`/addUser?mobilenum=${phone}`)
+      .then((response) => {
+        success(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        fail(error);
+      });
   },
-  async editContact(userid,phone) {
-    try {
-      const response = await API.put(`editContact?id=${userid}&mobilenum=${phone}`);
-      return response.data
-    } catch (error) {
-      console.error(error);
-      return error;
-    }
+  async editContact({ success, fail, userId, phone }) {
+    API.put(`editContact?id=${userId}&mobilenum=${phone}`)
+      .then((response) => {
+        success(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        fail(error);
+      });
   },
-}
+};

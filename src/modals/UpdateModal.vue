@@ -59,15 +59,43 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide('user-update-modal')
       })
-      try{
-      const userData=await userAuth.handleUpdate(this.userid, this.username,this.about)
-      this.setUserData(userData)
-      alert("Updated User");
-      }
-      catch (error) {
-        console.error(error)
-      }
+      this.$store.dispatch("AUTH_USER", {
+        success: this.onSuccess,
+      fail: this.onFail,
+      data: {
+        userid: this.userid,
+        username: this.username,
+        about:this.about
+      },
+    });
+  },
+  onSuccess(data) {
+    console.log("inside on onSucces");
+    localStorage.setItem("isLogined", true);
+    console.log(data);
+    this.$router.push({ name: "home" });
+  },
+  onFail(err) {
+    console.log("inside on onLogin");
+    localStorage.setItem("isLogined", false);
+  },
+
+
+
+
+
+
+
+
+
+      // try{
+      // const userData=await userAuth.handleUpdate(this.userid, this.username,this.about)
+      // this.setUserData(userData)
+      // alert("Updated User");
+      // }
+      // catch (error) {
+      //   console.error(error)
+      // }
     }
   }
-}
 </script>
