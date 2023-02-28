@@ -1,5 +1,6 @@
 import { mapGetters,mapActions} from "vuex";
 import userGroups from "@/apiservice/userGroups";
+
 export default {
   data() {
     return {
@@ -126,6 +127,11 @@ export default {
         }
       } 
     
+    }
+  },
+  filters:{
+    filterDate: function(value) {
+      return value.toString().toGMTString()
     }
   },
   watch: {

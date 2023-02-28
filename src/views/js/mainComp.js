@@ -63,6 +63,7 @@ import { mapActions } from "vuex";
       
         })
       },
+      
       handleScroll()
       {
         const container = this.$refs.scrollContainer;

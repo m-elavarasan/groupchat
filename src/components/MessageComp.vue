@@ -39,6 +39,8 @@
           :class="message.senderid == user.userid ? 'rounded-pill bg-primary text-white' : 'rounded-pill bg-secondary text-white'">
           <p class="m-1">{{ message.messagetext }}</p> 
     </div>
+    <small class="text-muted text-muted mt-2 p-2">{{message.timestamp}}</small>
+
   </div>
     </ul> 
   </div>
