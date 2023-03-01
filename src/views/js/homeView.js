@@ -17,7 +17,7 @@ export default {
     }
   },
   methods: {
-        async submitLogin() {
+    submitLogin() {
     this.$store.dispatch("AUTH_USER", {
       success: this.onSuccess,
       fail: this.onFail,

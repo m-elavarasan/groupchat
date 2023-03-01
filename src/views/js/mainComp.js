@@ -67,15 +67,16 @@ import { mapActions } from "vuex";
       handleScroll()
       {
         const container = this.$refs.scrollContainer;
-        const containerHeight = container.offsetHeight;
-        const contentHeight = container.scrollHeight;
-        const scrollPosition = container.scrollTop;
-        console.log(containerHeight,scrollPosition,contentHeight, containerHeight+scrollPosition +1)
-        console.log(containerHeight + scrollPosition >= contentHeight);
-        if (containerHeight + scrollPosition + 1>= contentHeight && !this.isLoading) {      
-        console.log("inside if");
+
+        // const containerHeight = container.offsetHeight;
+        // const contentHeight = container.scrollHeight;
+        // const scrollPosition = container.scrollTop;
+        // console.log(containerHeight,scrollPosition,contentHeight, containerHeight+scrollPosition +1)
+        // console.log(containerHeight + scrollPosition >= contentHeight);
+        // if (containerHeight + scrollPosition + 1>= contentHeight && !this.isLoading) {      
+        // console.log("inside if");
         //  this.fetchMessages() 
-      }
+      // }
     },
     //   async fetchMessages() {
     //     console.log('Method Called');

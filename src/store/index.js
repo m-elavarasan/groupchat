@@ -89,7 +89,7 @@ export default new Vuex.Store({
       },
       });
     },
-    FETCHALLMSG({ commit }, { data, success, fail, }) {
+    FETCHALLMSG({ commit }, { data, success, fail}) {
       console.log(data);
       userGroups.displayAllMsg(data, 
          {
@@ -105,7 +105,7 @@ export default new Vuex.Store({
     },
 
 
-    async GETGROUPDATA({ commit },{groupId}) {
+    GETGROUPDATA({ commit },{groupId}) {
       console.log("Inside getGroup Action"+ groupId);
   
       userGroups.fetchGroupMembers(groupId,
@@ -129,7 +129,7 @@ export default new Vuex.Store({
 
 
 
-    async fetchContacts({ commit }, { success, fail }) {
+    fetchContacts({ commit }, { success, fail }) {
       userContact.fetchContact({
         success: (res) => {
           console.log(" Fetech Contact success");
@@ -142,7 +142,7 @@ export default new Vuex.Store({
       });
     },
 
-    async fetchGroups({ commit }, { mobile,success, fail }) {
+ fetchGroups({ commit }, { mobile,success, fail }) {
       userGroups.fetchGroups({mobile, 
         success: (res) => {
           commit("setGroups", res);
@@ -154,7 +154,7 @@ export default new Vuex.Store({
         },
             });
     },
-    async intialFetchMessages({ commit }, { success, fail, groupId, userId }) {
+     intialFetchMessages({ commit }, { success, fail, groupId, userId }) {
       this.state.page = 1;
       this.state.groupId = groupId;
       this.state.userId = userId;
