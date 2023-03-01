@@ -2,7 +2,7 @@
   <div>
           <div class="d-flex flex-column align-items-center mt-5">
         <h2 class="text-primary mb-5">Welcome to ChatApp</h2>
-        <form class="w-50 p-3 bg-light border border-primary rounded" @submit.once="submitLogin">
+        <form class="w-50 p-3 bg-light border border-primary rounded" @submit.prevent="submitLogin">
           <div class="form-group">
             <label for="mobile">Mobile</label>
             <input type="text" class="form-control" id="mobile" v-model="mobile">
@@ -13,6 +13,7 @@
           </div>
           <button :disabled="isLoading" type="submit" class="btn btn-primary w-100 mt-3">Submit</button>
         </form>
+        <p v-if="errorMsgVisible" class="text-danger" >{{errMsg}}</p>
       </div>
   </div>
 </template>
