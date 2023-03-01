@@ -12,6 +12,7 @@ import EditContactModal from '@/modals/EditContactModal.vue';
 import { mapActions } from "vuex";
 
   export default {
+    name: 'MainView',
     components:{
       HeaderComp,
       LeftBarComp,
@@ -37,6 +38,12 @@ import { mapActions } from "vuex";
       },
     },
     mounted() {
+    // console.log("UserOld Data :")
+    // const user = localStorage.getItem('userData');
+    // if (user) {
+    // }
+      this.$store.dispatch("UPDAT_LOCAL_DATA", this.user)
+      // console.log(this.user);     
       this.$store.dispatch("fetchContacts",{
         success: (res)=>{
         console.log("msg fetch success");

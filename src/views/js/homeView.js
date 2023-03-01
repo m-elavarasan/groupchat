@@ -1,23 +1,22 @@
-import userAuth from '@/apiservice/userAuth'
-import { mapActions } from 'vuex'
 export default {
   name: 'HomeView',
-  components: {
-  },
   data() {
     return {
       mobile: '',
       password: '',
+      isLoading:false
     };
   },
   mounted() {
-    const user = localStorage.getItem('userData');
-    if (user) {
-    this.$store.dispatch("AUTH_USER", { payload: JSON.parse(user) });      
-    }
+    // console.log("UserOld Data :")
+    // const user = localStorage.getItem('userData');
+    // if (user) {
+    // this.$store.dispatch("AUTH_USER", { payload: JSON.parse(user) });      
+    // }
   },
   methods: {
     submitLogin() {
+      console.log("Button Cicked")
     this.$store.dispatch("AUTH_USER", {
       success: this.onSuccess,
       fail: this.onFail,
@@ -29,13 +28,24 @@ export default {
   },
   onSuccess(data) {
     console.log("inside on onSucces");
+  isLoading=true,
     localStorage.setItem("isLogined", true);
     console.log(data);
-    this.$router.push({ name: "home" });
+    // this.$router.push({ name: "home" });
   },
+
   onFail(err) {
-    console.log("inside on onLogin");
+    console.error(err),
+    isLoading=false,
+    alert(err.data),
+    this.resetFun(),
+    makeToast("Login Failed")
     localStorage.setItem("isLogined", false);
+  },
+  resetFun()
+  {
+    this.mobile= '',
+    this.password=''
   },
     // async submitLogin() {
     //   try {

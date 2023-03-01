@@ -91,9 +91,9 @@ export default {
   deleteGroup(groupId, success, fail) {
     API.delete(`/deleteGroup?groupid=${groupId}`)
       .then(() => {
-        success();
+        success.success();
         console.log(groupId + " Deleted Successfully");
       })
-      .catch((error) => fail(error));
+      .catch((error) => success.fail(error));
   },
 };

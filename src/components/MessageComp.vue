@@ -2,22 +2,21 @@
   <div style="margin-bottom: 15%;" v-if="showBase">
     <div class="flex-wrap">
 
-    <nav class="navbar navbar-expand-lg navbar sticky-top" style="background-color:#f2f3f3">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupported" aria-controls="navbarSupported" aria-expanded="false" aria-label="Toggle navigation">
+    <nav id="sticky-top" style="background-color:#f2f3f3">
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupported" aria-controls="navbarSupported" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupported">
+      </button> -->
+      <div class="navbar" id="navbarSupported">
       <a class="navbar-brand ml-2 " v-for="groupData in Object.keys(selectedGroupData).slice(0, 1)">{{
         selectedGroupData[groupData].group.groupname
       }}</a>
-      <div class="navbar" id="navbarNav">
         <span>User ID:</span>
         <ul class="navbar-nav" v-for="groupData in Object.keys(selectedGroupData).slice(0, 1)">
           <li class="nav-item" v-for="member in selectedGroupData[groupData].group.members">
             <a class="nav-link">{{ member.userid }}</a>
           </li>
         </ul>
-      </div>
+      <!-- </div> -->
       <button v-if="this.group" type="button" class="btn btn-danger fixed-right" @click="delGroup"> Delete Group</button>
    </div>
     </nav>
@@ -92,11 +91,19 @@
   .justify-content-end {
     background-color: none;
   }
+  #sticky-top{
+    position: fixed;
+      width: -webkit-fill-available;
+      padding:1%;
+  }
   @media screen and (min-width: 0px) and (max-width: 700px) {
     .img-fluid{
       position: fixed;
       margin-left: 25%;
       height: -webkit-fill-available;
     }
+    .navbar{
+      justify-content: space-evenly;
+     }
   }
 </style>

@@ -8,15 +8,11 @@ export default {
     };
   },
   methods: {
-    async handleLogout() {
+     handleLogout() {
       let text = "Are you sure to Sign Out \n Either Sign Out or Cancel.";
       if (confirm(text) == true) {
-      try {
-        await userAuth.handleLogout();
-      } catch (error) {
-        console.error(error);
+      userAuth.handleLogout({success:()=>{console.log("Sign Out Successfull");},fail:(err)=>{console.error(err);}});
       }
-    }
     },
     // openModalUpdate()
     // {

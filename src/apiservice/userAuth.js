@@ -5,8 +5,8 @@ const API = axios.create({
 });
 
 export default {
-  async handleLogin({ success, fail, data }) {
-    await API.post(`/loginUser`, data)
+   handleLogin({ success, fail, data }) {
+    API.post(`/loginUser`, data)
       .then((res) => {
         console.log("Inside userAuth");
         console.log(res.status == 200);
@@ -22,8 +22,8 @@ export default {
         fail(err.response);
       });
   },
-  async handleUpdade({ success, fail, data }) {
-    await API.put(
+   handleUpdade({ success, fail, data }) {
+     API.put(
       `/editUser?userid=${data.userid}&username=${data.username}&about=${data.about}`
     )
       .then((res) => {
@@ -54,15 +54,22 @@ export default {
   //   return response.data
   // },
 
-  async handleLogout() {
-    try {
-      const response = await API.post("/logoutUser");
-    } catch (error) {
-      alert(error.response.data);
-    }
-    localStorage.removeItem("userData");
-    this.loggedIn = false;
-    window.location.reload();
-    console.log(localStorage.getItem("userData"));
-  },
+  handleLogout(success, fail ) {
+    API.post("/logoutUser")
+     .then((res) => {
+       console.log(res.status == 200);
+       console.log(res);
+       if (res.status == 200) {
+        success.success(res)
+         localStorage.removeItem("userData");
+         this.loggedIn = false;
+         window.location.reload();
+         console.log(localStorage.getItem("userData"));
+        }
+     })
+     .catch((err) => {
+       console.log(err);
+       success.fail(err.response);
+     });
+ },
 };

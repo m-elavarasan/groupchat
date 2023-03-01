@@ -26,7 +26,7 @@
     background-color: #28364d;
     position: fixed;
     left: 0;
-    top: 10%;
+    top: 8%;
     height: 100vh;
     width: 25%;
     max-height: 100vh;
@@ -37,7 +37,6 @@
   .col-9{
     top: 10%; 
     flex-direction: column;
-
     margin-left: 25%;
     max-height: 95vh;
     overflow-y: scroll;
@@ -55,10 +54,24 @@
     }
     .col-3{
       flex-direction: column-reverse;
-      margin-top: 7%;
       display: flex;
-      justify-content: space-around;
-      
+      align-content: center;
+      justify-content: space-evenly;
+      align-items: baseline;
+      overflow-x: hidden;
+      flex-direction: row-reverse;
+
+
+    }
+  }
+  @media screen and (min-width: 1440px){
+    .col-9{
+      top: 8%;
+    }
+    .col-3
+    {
+      top: 8%;
+
     }
   }
   @media screen and (min-width: 701px){

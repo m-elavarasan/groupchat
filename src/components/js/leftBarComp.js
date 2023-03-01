@@ -15,7 +15,6 @@ export default {
       return JSON.parse(localStorage.getItem("userData"));
     },
     filteredGroups() {
-
       return Object.values(this.groups).filter(group => group.groupName.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },

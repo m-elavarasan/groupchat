@@ -8,9 +8,6 @@
           </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item active text-white">
-              <a class="nav-link text-light f-bold">Group Chat</a>
-            </li>
             <li class="nav-item dropdown ">
               <a class="nav-link dropdown-toggle text-light" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Contacts
@@ -24,15 +21,18 @@
                 <li><a class="dropdown-item" v-b-modal.modal-scrollable>View Contacts</a></li>
               </ul>
             </li>
-            <li class="nav-item dropdown ">
+            <li class="nav-item active text-white">
+              <a class="nav-link text-light" v-b-modal.create-group-modal>Create Group</a>
+            </li>
+            <!-- <li class="nav-item dropdown ">
               <a class="nav-link dropdown-toggle text-light" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Groups
                 </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" v-b-modal.create-group-modal>Create Group</a></li>
+                <li><a class="dropdown-item" ></a></li>
                 <li><a class="dropdown-item" v-b-modal.modal-scrollable-list-group>List Groups</a></li>
               </ul>
-            </li>
+            </li> -->
             <a class="nav-link text-info f-bold">About Me: {{userData.about | toUpper}}</a>
           </ul>
           <!-- <div class="form-group p-2">
