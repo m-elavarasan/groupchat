@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div v-if="this.isLoadingLocal">
+    <div id="loader">
+      <b-spinner type="grow"  variant="success"></b-spinner>
+    </div>
+    </div>
+  <div v-else>
     <HeaderComp />
     <div class="container">
       <div class="row ">

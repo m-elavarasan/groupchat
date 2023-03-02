@@ -9,6 +9,7 @@ import CreateContactModal from '@/modals/CreateContactModal.vue'
 import ListGroupsModal from '@/modals/ListGroupsModal.vue';
 import EditContactModal from '@/modals/EditContactModal.vue';
 
+
   export default {
     name: 'MainView',
     components:{
@@ -28,6 +29,7 @@ import EditContactModal from '@/modals/EditContactModal.vue';
         currentPage:1,
         totalPage:1,
         isLoading: false, 
+        isLoadingLocal:true
       }
     },
     computed: {
@@ -36,6 +38,7 @@ import EditContactModal from '@/modals/EditContactModal.vue';
       },
     },
     mounted() {
+      this.isLoadingLocal=true,
     // console.log("UserOld Data :")
     // const user = localStorage.getItem('userData');
     // if (user) {
@@ -45,8 +48,11 @@ import EditContactModal from '@/modals/EditContactModal.vue';
       this.$store.dispatch("fetchContacts",{
         success: (res)=>{
         console.log("msg fetch success");
+        this.isLoadingLocal=false
+
       },
       fail:(res)=>{
+        this.isLoadingLocal=false
         console.log("Error in fetch Message");
       }
     })

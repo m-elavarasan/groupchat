@@ -53,6 +53,7 @@ export default {
       this.handleSubmit()
     },
     async handleSubmit() {
+      // this.$bvModal.hide('create-group-modal')
       this.$nextTick(() => {
         this.$bvModal.hide('create-group-modal')
       })

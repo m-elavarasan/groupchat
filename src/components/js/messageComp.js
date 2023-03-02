@@ -210,7 +210,7 @@ export default {
     },
   },
   watch: {
-    selectedGroupData: function (selectedGroupData) {
+    selectedGroupData (selectedGroupData) {
       this.showBase = true;
       this.fetchFile(localStorage.getItem("groupId"));
       this.group = JSON.parse(localStorage.getItem("groupId"));

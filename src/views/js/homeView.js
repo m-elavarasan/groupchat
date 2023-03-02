@@ -20,6 +20,7 @@ export default {
   },
   methods: {
     submitLogin() {
+      this.isLoading=true
       console.log("Button Cicked")
     this.$store.dispatch("AUTH_USER", {
       success: this.onSuccess,
@@ -32,7 +33,7 @@ export default {
   },
   onSuccess(data) {
     console.log("inside on onSucces");
-    this.isLoading=true,
+    this.isLoading=false,
     localStorage.setItem("isLogined", true);
     console.log(data);
     this.$router.push({ name: "home" });

@@ -31,7 +31,7 @@ export default {
     }),
     console.log("UserData"+ this.user.userid);
     this.fetchGroups({
-      mobile: this.user.userid,
+      mobile: this.user?.userid,
       success: (groups) => {
         console.log('User Group Fetch successfull');
             },
@@ -41,7 +41,7 @@ export default {
     });
       },
   methods: {
-   async getGroupMessage(groupId) {
+    getGroupMessage(groupId) {
     this.selectedGroup = groupId;
     this.$emit('fetchmsg',groupId)
     localStorage.setItem('groupId', JSON.stringify(groupId))
