@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLoading">
     <div id="loader">
-      <b-spinner label="..." variant="primary"></b-spinner>
+      <b-spinner type="grow"  variant="primary"></b-spinner>
     </div>
     </div>
   <div v-else>

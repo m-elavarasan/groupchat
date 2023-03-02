@@ -1,8 +1,8 @@
 export default {
   methods: {
-    displayErrorMessage(msg, variant) {
+    displayErrorMessage(title,msg, variant) {
       this.$bvModal.msgBoxOk(msg, {
-        title: 'Error',
+        title:title,
         headerClass: `bg-${variant} text-light`,
         footerClass: 'd-flex justify-content-center',
         okVariant: variant,

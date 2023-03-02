@@ -9,8 +9,6 @@ import CreateContactModal from '@/modals/CreateContactModal.vue'
 import ListGroupsModal from '@/modals/ListGroupsModal.vue';
 import EditContactModal from '@/modals/EditContactModal.vue';
 
-import { mapActions } from "vuex";
-
   export default {
     name: 'MainView',
     components:{

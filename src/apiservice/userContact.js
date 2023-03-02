@@ -5,7 +5,7 @@ const API = axios.create({
 });
 
 export default {
-  async fetchContact({ success, fail }) {
+  fetchContact({ success, fail }) {
     API.get('/displayContacts')
       .then((response) => {
         console.log(response.data)
@@ -16,17 +16,17 @@ export default {
         fail(error);
       });
   },
-  async createContact({ success, fail, phone }) {
+  createContact(phone,{success, fail }) {
     API.post(`/addUser?mobilenum=${phone}`)
       .then((response) => {
-        success(response.data);
+        console.log(success)
+        success(response.data)
       })
       .catch((error) => {
-        console.error(error);
         fail(error);
       });
   },
-  async editContact({ success, fail, userId, phone }) {
+  editContact(userId, phone,{ success, fail}) {
     API.put(`editContact?id=${userId}&mobilenum=${phone}`)
       .then((response) => {
         success(response.data);

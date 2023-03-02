@@ -15,10 +15,20 @@ export default {
       return JSON.parse(localStorage.getItem("userData"));
     },
     filteredGroups() {
-      return Object.values(this.groups).filter(group => group.groupName.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      let sortGroup=Object.values(this.groups).reverse()
+      return sortGroup.filter(group => group.groupName.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
+  destroyed() {
+    window.removeEventListener("keyup", this.handleEscapeKey);
+  },
   mounted() {
+    window.addEventListener("keyup", (event) => {
+      if (event.key === "Escape") {
+        console.log("Escape pressed");
+        this.selectedGroup =null;
+      }
+    }),
     console.log("UserData"+ this.user.userid);
     this.fetchGroups({
       mobile: this.user.userid,

@@ -101,7 +101,7 @@ export default {
         this.uploadFile(file)
       }
       else {
-        this.displayErrorMessage("Message Cannot be Empty", "danger");
+        this.displayErrorMessage("Error","Message Cannot be Empty", "danger");
       }
     },    
     fetchFile(groupId) {

@@ -15,6 +15,7 @@
 
 <script>
 import userContact from '@/apiservice/userContact';
+import toastMixin from '@/mixins/toastMixin';
 import { mapGetters } from 'vuex';
 export default {
   data() {
@@ -23,6 +24,7 @@ export default {
       userid:'',
     }
   },
+  mixins:[toastMixin],
   computed: {
     ...mapGetters(['contacts'])
   },
@@ -33,19 +35,24 @@ export default {
       bvModalEvent.preventDefault()
       this.handleSubmit()
     },
-     async handleSubmit()
+      handleSubmit()
       {
         this.$nextTick(() => {
-        this.$bvModal.hide('create-contact-modal')
+        this.$bvModal.hide('edit-contact-modal')
       })
-      try {
-        const response = await userContact.editContact(this.userid,this.phone)
-        alert('Contact '+ this.phone  +' Edited')
-      } catch (error) {
-        console.error(error)
-      }
+        userContact.editContact(this.userid,this.phone,{
+          success: (res) => {
+          this.displayErrorMessage("Success","Contact "+(this.phone)  +' Edited', "success")
+          this.phone=''
+        },
+        fail: (err) => {
+          console.log(err)
+          this.displayErrorMessage(err.message,"Contact "+(this.phone)  +' Not Edited', "danger")
+          this.phone=''
+        },
+      });
     },
-  },
+    },
   }
 </script>
 

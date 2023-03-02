@@ -16,6 +16,7 @@
         <p v-if="errorMsgVisible" class="text-danger" >{{errMsg}}</p>
       </div>
   </div>
+  
 </template>
 
 <script src="./js/homeView.js"></script>
