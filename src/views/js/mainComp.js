@@ -26,10 +26,10 @@ import { mapActions } from "vuex";
     },
     data() {
       return {
-        isLoading:false,
         isShowModal:false,
         currentPage:1,
         totalPage:1,
+        isLoading: false, 
       }
     },
     computed: {
@@ -55,6 +55,7 @@ import { mapActions } from "vuex";
     },
     methods: {
       fetchmsg(groupId){
+        this.isLoading=true
         console.log('Emit works ' + groupId +' '+ this.user.userid);
         this.$store.dispatch("FETCHALLMSG", {
           data: {
@@ -62,10 +63,13 @@ import { mapActions } from "vuex";
             userid: this.user.userid,
           },
           success: (res)=>{
+            
             console.log("msg fetch success");
+            this.isLoading=false
           },
           fail:(res)=>{
             console.log("Error in fetch Message");
+            this.isLoading=false
           },
       
         })

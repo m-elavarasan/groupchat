@@ -1,12 +1,5 @@
 <template>
   <div>
-<!-- Popups & Modals -->
-    <UpdateModal/>
-    <CreateGroupModal/>
-    <ListContactModal/>
-    <CreateContactModal/>
-    <ListGroupsModal @fetchmsg="fetchmsg"/>
-    <EditContactModal/>
     <HeaderComp/>
     <div class="container">
     <div class="row ">
@@ -16,8 +9,17 @@
         </div>
      </div>
      <div class="col-9" ref="scrollContainer">
-        <MessageComp @fetchmsg="fetchmsg"> </MessageComp>
+        <MessageComp @fetchmsg="fetchmsg" :isLoading="isLoading"> </MessageComp>
       </div>
+
+      <!-- Popups & Modals -->
+    <UpdateModal/>
+    <CreateGroupModal/>
+    <ListContactModal/>
+    <CreateContactModal/>
+    <ListGroupsModal @fetchmsg="fetchmsg"/>
+    <EditContactModal/>
+    
       </div>
 </template>
 <script src="./js/mainComp.js"/>

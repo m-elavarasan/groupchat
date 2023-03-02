@@ -1,4 +1,10 @@
 <template>
+  <div v-if="isLoading">
+    <div id="loader">
+      <b-spinner label="..." variant="primary"></b-spinner>
+    </div>
+    </div>
+  <div v-else>
   <div style="margin-bottom: 15%;" v-if="showBase">
     <div class="flex-wrap">
 
@@ -21,12 +27,10 @@
    </div>
     </nav>
       </div>
-    <div class="d-flex flex-column p-1 mb-1" style="overflow-y: auto;">
-      <div class="d-flex flex-column">
-        <h5 class="p-1">Available Files:</h5>
+    <div class="d-flex flex-column" style="overflow-y: auto;">
+        <h5 class="files">Available Files:</h5>
         <div v-for="file in files" :key="file.id" class="p-1">
           <a :href="file.url" class="btn btn-link">{{ file.name }}</a>
-        </div>
       </div>
       </div>
   <div id="msgcont" class="mb-10">
@@ -46,7 +50,7 @@
   <form @submit.prevent="handleSendMessage" class="fixed-bottom p-2 bg-light">
     <div class="d-flex justify-content-evenly">
       <input type="text" class="form-control p-2" v-model="messageText" placeholder="Enter your message..." />
-      <input type="file" class="form-control p-2" ref="fileInput" @change="uploadFile" />
+      <input type="file" class="form-control p-2" ref="fileInput"/>
       <i class="fa fa-paperclip"></i>
       <button class="btn btn-primary">Send</button>
     </div>
@@ -55,6 +59,7 @@
   <div v-else>
     <img src="@/assets/background.jpg" class="img-fluid" style="background-size:cover; opacity: 0.1;top:0; left: 0; bottom: 0; right: 0 ;overflow:hidden;">
     <!-- <div style="background-image: url('@/assets/background.jpg'); opacity: 0.1;  background-size: cover;"></div> -->
+  </div>
   </div>
 </template>
 
@@ -90,6 +95,14 @@
   }
   .justify-content-end {
     background-color: none;
+  }
+  .files{
+    margin-top: 15%;
+  }
+  #loader{
+  position: fixed;
+  top: 50%;
+  left: 60%;
   }
   #sticky-top{
     position: fixed;

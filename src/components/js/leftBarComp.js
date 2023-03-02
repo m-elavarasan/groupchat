@@ -4,7 +4,7 @@ import fetchMessage from "@/mixins/fetchMessage";
 export default {
   data() {
     return {
-      groupid: "0",
+      selectedGroup: null,
       searchQuery: '',
     };
   },
@@ -31,25 +31,11 @@ export default {
     });
       },
   methods: {
-    // ...mapActions(["fetchGroups"],),
    async getGroupMessage(groupId) {
+    this.selectedGroup = groupId;
     this.$emit('fetchmsg',groupId)
     localStorage.setItem('groupId', JSON.stringify(groupId))
     this.$store.dispatch("GETGROUPDATA", {groupId})
-
-
-    // try{
-    //   // router.push(`${groupId}`)
-    //     await this.intialFetchMessages({
-    //     groupId,
-    //     userId: this.user.userid,
-    //     }),
-    //     this.getGroupData(groupId)
-    //     localStorage.setItem('groupId', JSON.stringify(groupId))
-    //   }
-    //   catch (error) {
-    //     console.error(error);
-    //   }
     },
   },
 

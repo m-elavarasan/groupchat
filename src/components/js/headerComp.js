@@ -1,18 +1,29 @@
-import userAuth from '@/apiservice/userAuth'
+import toastMixin from "@/mixins/toastMixin";
+import userAuth from "@/apiservice/userAuth";
 export default {
   components:{
   },
+  mixins:[toastMixin],
   data() {
     return {
       userData: {},
+      boxOne: ''
     };
   },
   methods: {
-     handleLogout() {
-      let text = "Are you sure to Sign Out \n Either Sign Out or Cancel.";
-      if (confirm(text) == true) {
-      userAuth.handleLogout({success:()=>{console.log("Sign Out Successfull");},fail:(err)=>{console.error(err);}});
-      }
+    handleLogout() {
+      this.displayConfirmation("Confirm to Logout", "danger")
+        .then((response) => {
+          if (response) {
+          userAuth.handleLogout({success:()=>{console.log("Sign Out Successfull");},fail:(err)=>{console.error(err);}});    }
+        })
+        .catch((error) => {
+          console.error(error); // handle error
+        });    
+    // let text = "Are you sure to Sign Out \n Either Sign Out or Cancel.";
+      // if (confirm(text) == true) {
+      // userAuth.handleLogout({success:()=>{console.log("Sign Out Successfull");},fail:(err)=>{console.error(err);}});
+      // }
     },
     // openModalUpdate()
     // {
