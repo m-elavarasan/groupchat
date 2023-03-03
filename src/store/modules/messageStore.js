@@ -1,8 +1,8 @@
 import userGroups from "@/apiservice/userGroups";
 
-export default({
+export default {
   state: {
-    allMsg:[],
+    allMsg: [],
     groupData: {},
     groups: [],
     messages: [],
@@ -14,7 +14,7 @@ export default({
     userId: 0,
   },
   getters: {
-    allMsg:(state)=> state.allMsg,
+    allMsg: (state) => state.allMsg,
     groups: (state) => state.groups,
     messages: (state) => state.messages,
     selectedGroupData: (state) => state.groupData,
@@ -41,39 +41,33 @@ export default({
     // },
   },
   actions: {
-   FETCHALLMSG({ commit }, { data, success, fail}) {
+    FETCHALLMSG({ commit }, { data, success, fail }) {
       console.log(data);
-      userGroups.displayAllMsg(data, 
-         {
+      userGroups.displayAllMsg(data, {
         success: (res) => {
-          console.log('success inside store');
           commit("setAllMsg", res);
-          success(res.data)
+          success(res.data);
         },
         fail: (err) => {
-          fail(err)
+          fail(err);
         },
       });
     },
 
-
-    GETGROUPDATA({ commit },{groupId}) {
-      console.log("Inside getGroup Action"+ groupId);
-  
-      userGroups.fetchGroupMembers(groupId,
-        {
-       success: (res) => {
-        console.log(res);
-         commit("setGroupData", res)
-         console.log('inside getgroupdata success');
-       },
-       fail: (err) => {
-        console.log(err);
-      },
-     });
-  },
- fetchGroups({ commit }, { mobile,success, fail }) {
-      userGroups.fetchGroups({mobile, 
+    GETGROUPDATA({ commit }, { groupId }) {
+      userGroups.fetchGroupMembers(groupId, {
+        success: (res) => {
+          console.log(res);
+          commit("setGroupData", res);
+        },
+        fail: (err) => {
+          console.log(err);
+        },
+      });
+    },
+    fetchGroups({ commit }, { mobile, success, fail }) {
+      userGroups.fetchGroups({
+        mobile,
         success: (res) => {
           commit("setGroups", res);
 
@@ -82,30 +76,7 @@ export default({
         fail: (err) => {
           fail(err);
         },
-            });
+      });
     },
-    //  intialFetchMessages({ commit }, { success, fail, groupId, userId }) {
-    //   this.state.page = 1;
-    //   this.state.groupId = groupId;
-    //   this.state.userId = userId;
-    //   userGroups
-    //     .displayMessagePages(
-    //       this.state.page,
-    //       this.state.limit,
-    //       groupId,
-    //       userId,
-    //       success,
-    //       fail
-    //     )
-    //     .then((data) => {
-    //       commit("setMessage", data.data["Messages:"]);
-    //       commit("setPagination", data.data);
-    //       success(data.data["Messages:"]);
-    //     })
-    //     .catch((error) => {
-    //       fail(error);
-    //     });
-    // },
-
   },
-});
+};

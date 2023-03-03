@@ -5,8 +5,8 @@
         <div class="list-group">
           <a class="list-group-item" @click="getGroupMessage(groups[group].id)">{{ groups[group].groupName }}</a>
         </div>
-          </ul>
-  </b-modal>
+      </ul>
+    </b-modal>
   </div>
 </template>
 
@@ -20,9 +20,8 @@ export default {
 
   },
   methods: {
-    getGroupMessage(groupId) 
-    {
-      this.$emit('fetchmsg',groupId)
+    getGroupMessage(groupId) {
+      this.$emit('fetchmsg', groupId)
       this.$refs.modal.hide()
       localStorage.setItem('groupId', JSON.stringify(groupId))
     },
@@ -30,6 +29,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -39,15 +39,12 @@ import EditContactModal from '@/modals/EditContactModal.vue';
     },
     mounted() {
       this.isLoadingLocal=true,
-    // console.log("UserOld Data :")
     // const user = localStorage.getItem('userData');
     // if (user) {
     // }
       this.$store.dispatch("UPDAT_LOCAL_DATA", this.user)
-      // console.log(this.user);     
       this.$store.dispatch("fetchContacts",{
         success: (res)=>{
-        console.log("msg fetch success");
         this.isLoadingLocal=false
 
       },
@@ -68,11 +65,9 @@ import EditContactModal from '@/modals/EditContactModal.vue';
           },
           success: (res)=>{
             
-            console.log("msg fetch success");
             this.isLoading=false
           },
           fail:(res)=>{
-            console.log("Error in fetch Message");
             this.isLoading=false
           },
       
@@ -89,18 +84,8 @@ import EditContactModal from '@/modals/EditContactModal.vue';
         // console.log(containerHeight,scrollPosition,contentHeight, containerHeight+scrollPosition +1)
         // console.log(containerHeight + scrollPosition >= contentHeight);
         // if (containerHeight + scrollPosition + 1>= contentHeight && !this.isLoading) {      
-        // console.log("inside if");
         //  this.fetchMessages() 
       // }
     },
-    //   async fetchMessages() {
-    //     console.log('Method Called');
-    //     try {
-    //       await this.nextFetchMessages();
-    //       this.isLoading=false
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   },
     },
   }

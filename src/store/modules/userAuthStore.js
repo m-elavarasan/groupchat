@@ -1,7 +1,6 @@
-
 import userAuth from "@/apiservice/userAuth";
 
-export default ({
+export default {
   state: {
     userData: {},
     userId: 0,
@@ -13,18 +12,14 @@ export default ({
     setUserData(state, userData) {
       state.userData = userData;
     },
-    },
+  },
   actions: {
-    // setUserData({ commit }, userData) {
-    //   commit("setUserData", userData)
-    // },
     AUTH_USER({ commit }, { success, fail, data }) {
       userAuth.handleLogin({
         data,
         success: (res) => {
-          console.log(" AUTH_USER success")
-          localStorage.setItem("userData", JSON.stringify(res.data))
-          commit("setUserData", res.data)
+          localStorage.setItem("userData", JSON.stringify(res.data));
+          commit("setUserData", res.data);
 
           success(res.data);
         },
@@ -34,15 +29,10 @@ export default ({
         },
       });
     },
-
-
-    UPDAT_LOCAL_DATA({ commit },  data) {
+    UPDAT_LOCAL_DATA({ commit }, data) {
       console.log(data);
-    commit("setUserData", data)
+      commit("setUserData", data);
     },
-
-
-
     UPDATE_USER({ commit }, { success, fail, data }) {
       userAuth.handleUpdade({
         data,
@@ -53,8 +43,8 @@ export default ({
         },
         fail: (err) => {
           fail(err);
-      },
+        },
       });
     },
-  }
-});
+  },
+};

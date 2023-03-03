@@ -1,22 +1,22 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store";
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-vue/dist/bootstrap-vue.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
-Vue.config.productionTip = false
-Vue.filter('toUpper', function (value) {
-  if (!value) return ''
-  value = value.toString()
-  return value.toUpperCase() 
-})
-Vue.use(BootstrapVue)
+Vue.config.productionTip = false;
+Vue.filter("toUpper", function (value) {
+  if (!value) return "";
+  value = value.toString();
+  return value.toUpperCase();
+});
+Vue.use(BootstrapVue);
 new Vue({
   router,
   store,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");

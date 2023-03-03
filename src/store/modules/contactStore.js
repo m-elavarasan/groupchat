@@ -1,12 +1,10 @@
 import userContact from "@/apiservice/userContact";
-export default ({
+export default {
   state: {
     contacts: [],
-    
   },
   getters: {
     contacts: (state) => state.contacts,
-    
   },
   mutations: {
     setContacts(state, contacts) {
@@ -17,7 +15,6 @@ export default ({
     fetchContacts({ commit }, { success, fail }) {
       userContact.fetchContact({
         success: (res) => {
-          console.log(" Fetech Contact success");
           commit("setContacts", res);
           success(res.data);
         },
@@ -27,4 +24,4 @@ export default ({
       });
     },
   },
-});
+};

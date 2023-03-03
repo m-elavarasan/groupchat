@@ -1,15 +1,15 @@
 export default {
   methods: {
-    displayErrorMessage(title,msg, variant) {
+    displayErrorMessage(title, msg, variant) {
       this.$bvModal.msgBoxOk(msg, {
-        title:title,
+        title: title,
         headerClass: `bg-${variant} text-light`,
-        footerClass: 'd-flex justify-content-center',
+        footerClass: "d-flex justify-content-center",
         okVariant: variant,
         centered: true,
-        size: 'sm'
-      })
-    },     
+        size: "sm",
+      });
+    },
     displayConfirmation(msg, variant) {
       return new Promise((resolve, reject) => {
         this.$bvModal

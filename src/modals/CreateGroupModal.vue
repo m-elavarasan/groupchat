@@ -39,7 +39,6 @@ export default {
   },
   mounted() {
     this.createdby = this.user.userid
-    // this.fetchContacts()
   },
   methods: {
     ...mapActions(['fetchGroups']),
@@ -53,7 +52,6 @@ export default {
       this.handleSubmit()
     },
     async handleSubmit() {
-      // this.$bvModal.hide('create-group-modal')
       this.$nextTick(() => {
         this.$bvModal.hide('create-group-modal')
       })
@@ -65,13 +63,12 @@ export default {
             mobile: this.createdby,
             success: (groups) => {
               this.resetModal()
-             },
+            },
             fail: (error) => {
               console.error(error);
             }
           });
         },
-        // this.fetchGroups(this.createdby,{success:()=>{console.log("success");},fail:(err)=>{console.error(err)}})},
         fail: (err) => { console.error(error) }
       })
     },

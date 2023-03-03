@@ -11,28 +11,18 @@
 </template>
 
 <script>
-import { mapGetters,mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   computed: {
     ...mapGetters(['contacts'])
   },
   mounted() {
-//     this.fetchContacts({
-//   success: (contacts) => {
-//     console.log("Contacts fetched successfully", contacts);
-//   },
-//   fail: (error) => {
-//     console.error("Error fetching contacts", error);
-//   }
-// });
   },
   methods: {
     ...mapActions(['fetchContacts']),
 
   },
-  }
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

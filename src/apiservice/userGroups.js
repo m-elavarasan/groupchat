@@ -10,48 +10,49 @@ export default {
     API.get(`/showGroup?mobilenum=${mobile.mobile}`)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data)
-          mobile.success(res.data)
-      }
-    })
+          console.log(res.data);
+          mobile.success(res.data);
+        }
+      })
       .catch((err) => {
         mobile.fail(err);
       });
   },
-  displayAllMsg(data,success,fail)
-  {
-    API.get(`http://localhost:8085/displaySpecific?groupid=${data.groupid}&userid=${data.userid}`)
-    .then((res) => {
-      if (res.status === 200) {
-        success.success(res.data)
-    }
-  })
-    .catch((err) => {
-      success.fail(err);
-    })
+  displayAllMsg(data, success, fail) {
+    API.get(
+      `http://localhost:8085/displaySpecific?groupid=${data.groupid}&userid=${data.userid}`
+    )
+      .then((res) => {
+        if (res.status === 200) {
+          success.success(res.data);
+        }
+      })
+      .catch((err) => {
+        success.fail(err);
+      });
   },
 
   fetchGroupMembers(groupId, success, fail) {
     API.get(`/displayAgroupMembers?groupid=${groupId}`)
-    .then((res) => {
-      if (res.status === 200) {
-        success.success(res.data)
-    }
-  })
-    .catch((err) => {
-      success.fail(err);
-    })
+      .then((res) => {
+        if (res.status === 200) {
+          success.success(res.data);
+        }
+      })
+      .catch((err) => {
+        success.fail(err);
+      });
   },
   fetchFilesByGroup(groupId, success, fail) {
     API.get(`/FilesByGroupid?groupid=${groupId}`)
-        .then((res) => {
+      .then((res) => {
         if (res.status === 200) {
-          success.success(res.data)
-      }
-    })
+          success.success(res.data);
+        }
+      })
       .catch((err) => {
         success.fail(err);
-      })
+      });
   },
   displayMessagePages(page, limit, groupId, userId, success, fail) {
     API.get(
@@ -65,11 +66,6 @@ export default {
       .then((response) => success.success(response.data))
       .catch((error) => success.fail(error));
   },
-  // fetchGroupMembers(groupId, success, fail) {
-  //   API.get(`/displayAgroupMembers?groupid=${groupId}`)
-  //     .then((response) => success(response.data))
-  //     .catch((error) => fail(error));
-  // },
   uploadFile(groupId, senderId, file, success, fail) {
     const formData = new FormData();
     formData.append("file", file);

@@ -1,9 +1,9 @@
 <template>
   <div v-if="this.isLoadingLocal">
     <div id="loader">
-      <b-spinner type="grow"  variant="success"></b-spinner>
+      <b-spinner type="grow" variant="success"></b-spinner>
     </div>
-    </div>
+  </div>
   <div v-else>
     <HeaderComp />
     <div class="container">
@@ -109,4 +109,5 @@
     margin-bottom: 5%;
     padding-bottom: 5%;
   }
-}</style>
+}
+</style>

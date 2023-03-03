@@ -24,14 +24,10 @@ export default {
     user() {
       return JSON.parse(localStorage.getItem("userData"));
     },
-    // id() {
-    //   return JSON.parse(localStorage.getItem("groupId"))
-    // },
   },
   mounted() {
     window.addEventListener("keyup", (event) => {
       if (event.key === "Escape") {
-        console.log("Escape pressed");
         this.showBase = false;
       }
     });
@@ -40,42 +36,26 @@ export default {
     window.removeEventListener("keyup", this.handleEscapeKey);
   },
   methods: {
-    ...mapActions(["intialFetchMessages", "fetchGroups"]),
-    // uploadFile(event) {
-    //   const file = event.target.files[0];
-    //   userGroups
-    //     .uploadFile(this.group, this.user.userid, file)
-    //     .then((response) => {
-    //       console.log(response);
-    //       alert("File Uploaded");
-    //       this.fetchFile(this.group);
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    //     this.$refs.fileInput.value= null
-    //   },
-
-
-   sendMessage() {
-    if (this.messageText.length <= 250) {
-      userGroups.sendMessage(this.group, this.user.userid, this.messageText, {
-        success: (res) => {
-          this.messageText = "";
-          this.$emit("fetchmsg", this.group);
-        },
-        fail: (err) => {
-          console.error(err);
-        },
-      });
-    } else {
-      this.displayErrorMessage(
-        "Message is too long (maximum 250 characters)",
-        "danger"
-      );
-    }
+    ...mapActions(["fetchGroups"]),
+    sendMessage() {
+      if (this.messageText.length <= 250) {
+        userGroups.sendMessage(this.group, this.user.userid, this.messageText, {
+          success: () => {
+            this.messageText = "";
+            this.$emit("fetchmsg", this.group);
+          },
+          fail: (err) => {
+            console.error(err);
+          },
+        });
+      } else {
+        this.displayErrorMessage(
+          "Message is too long (maximum 250 characters)",
+          "danger"
+        );
+      }
     },
-  uploadFile(file){
+    uploadFile(file) {
       userGroups.uploadFile(this.group, this.user.userid, file, {
         success: (res) => {
           this.fetchFile(this.group);
@@ -85,25 +65,19 @@ export default {
           console.error(err);
         },
       });
-  },
+    },
     handleSendMessage() {
       const file = this.$refs.fileInput.files[0];
       if (file && this.messageText) {
-        this.uploadFile(file),
-        this.sendMessage()
+        this.uploadFile(file), this.sendMessage();
+      } else if (this.messageText) {
+        this.sendMessage();
+      } else if (file) {
+        this.uploadFile(file);
+      } else {
+        this.displayErrorMessage("Error", "Message Cannot be Empty", "danger");
       }
-      else if(this.messageText)
-      {
-        this.sendMessage()
-      }
-      else if(file)
-      {
-        this.uploadFile(file)
-      }
-      else {
-        this.displayErrorMessage("Error","Message Cannot be Empty", "danger");
-      }
-    },    
+    },
     fetchFile(groupId) {
       userGroups.fetchFilesByGroup(groupId, {
         success: (res) => {
@@ -115,61 +89,29 @@ export default {
       });
       console.log(this.files);
     },
-
-    // async handleSendMessage() {
-
-    //   console.log(this.group,this.user.userid);
-
-    //   if (this.messageText !== "") {
-    //     await userGroups
-    //       .sendMessage(this.group, this.user.userid, this.messageText)
-    //       .then((response) => {
-    //         console.log(response.data);
-    //         this.fetchMessages();
-    //         this.messageText = "";
-    //       })
-    //       .catch((error) => {
-    //         console.error(error);
-    //       });
-    //   } else {
-    //     alert("Message Cannot be Empty");
-    //   }
-    // },
-    // async fetchMessages() {
-    //   console.log('Method Called');
-    //   try {
-    //     await this.intialFetchMessages(({
-    //       groupId:this.group,
-    //       userId: this.user.userid,
-    //       }));
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // },
-    async delGroup() {
-
+    delGroup() {
       this.displayConfirmation("Are you sure to Delete", "danger")
-      .then((response) => {
-        if (response) {
-          userGroups.deleteGroup(this.group, {
-            success: () => {
-              console.log(this.user.userid);
-              this.fetchGroups({
-                mobile: this.user.userid,
-                success: (groups) => {},
-                fail: (error) => {
-                  console.error(error);
-                },
-              });
-              localStorage.setItem("groupId", 0);
-              this.showBase = false;
-            }     
-           })
+        .then((response) => {
+          if (response) {
+            userGroups.deleteGroup(this.group, {
+              success: () => {
+                console.log(this.user.userid);
+                this.fetchGroups({
+                  mobile: this.user.userid,
+                  success: (groups) => {},
+                  fail: (error) => {
+                    console.error(error);
+                  },
+                });
+                localStorage.setItem("groupId", 0);
+                this.showBase = false;
+              },
+            });
           }
         })
-      .catch((error) => {
-        console.error(error); // handle error
-      });  
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
   timeSince(date) {},
@@ -210,7 +152,7 @@ export default {
     },
   },
   watch: {
-    selectedGroupData (selectedGroupData) {
+    selectedGroupData(selectedGroupData) {
       this.showBase = true;
       this.fetchFile(localStorage.getItem("groupId"));
       this.group = JSON.parse(localStorage.getItem("groupId"));

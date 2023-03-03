@@ -1,6 +1,6 @@
 <template>
   <div v-if="isLoading">
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <div class="loader d-flex flex-column min-vh-100 justify-content-center align-items-center">
       <b-spinner type="grow"  variant="primary"></b-spinner>
     </div>
     </div>

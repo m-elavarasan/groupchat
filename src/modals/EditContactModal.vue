@@ -7,7 +7,7 @@
         </b-form-select>
       </b-form-group>
       <b-form-group label="Phone" label-for="phone">
-        <b-form-input id="phone"  v-model="phone" required></b-form-input>
+        <b-form-input id="phone" v-model="phone" required></b-form-input>
       </b-form-group>
     </b-modal>
   </div>
@@ -20,11 +20,11 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      phone:'',
-      userid:'',
+      phone: '',
+      userid: '',
     }
   },
-  mixins:[toastMixin],
+  mixins: [toastMixin],
   computed: {
     ...mapGetters(['contacts'])
   },
@@ -35,27 +35,24 @@ export default {
       bvModalEvent.preventDefault()
       this.handleSubmit()
     },
-      handleSubmit()
-      {
-        this.$nextTick(() => {
+    handleSubmit() {
+      this.$nextTick(() => {
         this.$bvModal.hide('edit-contact-modal')
       })
-        userContact.editContact(this.userid,this.phone,{
-          success: (res) => {
-          this.displayErrorMessage("Success","Contact "+(this.phone)  +' Edited', "success")
-          this.phone=''
+      userContact.editContact(this.userid, this.phone, {
+        success: (res) => {
+          this.displayErrorMessage("Success", "Contact " + (this.phone) + ' Edited', "success")
+          this.phone = ''
         },
         fail: (err) => {
           console.log(err)
-          this.displayErrorMessage(err.message,"Contact "+(this.phone)  +' Not Edited', "danger")
-          this.phone=''
+          this.displayErrorMessage(err.message, "Contact " + (this.phone) + ' Not Edited', "danger")
+          this.phone = ''
         },
       });
     },
-    },
-  }
+  },
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
