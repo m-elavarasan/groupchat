@@ -33,19 +33,18 @@ export default {
   },
   computed: {
     ...mapGetters(['userData', 'contacts']),
-    user(){
+    user() {
       return JSON.parse(localStorage.getItem("userData"));
     }
   },
   mounted() {
     this.createdby = this.user.userid
-      // this.fetchContacts()
   },
   methods: {
     ...mapActions(['fetchGroups']),
     resetModal() {
       this.userid = '',
-        this.createdby = '',
+        this.createdby = this.user.userid,
         this.groupname = ''
     },
     handleOk(bvModalEvent) {
@@ -56,13 +55,22 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide('create-group-modal')
       })
-      try {
-        const response = await userGroups.createGroup(this.groupname, this.createdby, this.selectedMembers)
-        console.log('Group '+ this.groupname+ ' Created')
-        this.fetchGroups(this.createdby);
-      } catch (error) {
-        console.error(error)
-      }
+      userGroups.createGroup(this.groupname, this.createdby, this.selectedMembers, {
+        success: (response) => {
+          console.log('Group ' + this.groupname + ' Created')
+          console.log(this.createdby);
+          this.fetchGroups({
+            mobile: this.createdby,
+            success: (groups) => {
+              this.resetModal()
+            },
+            fail: (error) => {
+              console.error(error);
+            }
+          });
+        },
+        fail: (err) => { console.error(error) }
+      })
     },
   }
 }

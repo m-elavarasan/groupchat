@@ -1,33 +1,59 @@
-import userAuth from '@/apiservice/userAuth'
-import { mapActions } from 'vuex'
+import toastMixin from "@/mixins/toastMixin";
 export default {
-  name: 'HomeView',
-  components: {
-  },
+  name: "HomeView",
   data() {
     return {
-      mobile: '',
-      password: '',
+      mobile: "",
+      password: "",
+      isLoading: false,
+      errorMsgVisible: false,
+      errMsg: "",
     };
   },
-  mounted() {
-    const user = localStorage.getItem('userData');
-    if (user) {
-    this.$store.dispatch("setUserData", { payload: JSON.parse(user) });      
-    }
-  },
+  mixins: [toastMixin],
   methods: {
-    async submitLogin() {
-      try {
-        const userData = await userAuth.handleLogin(this.mobile, this.password)
-        localStorage.setItem('userData', JSON.stringify(userData))
-        this.setUserData(userData),
-        this.$router.push({ name: 'home'})
-      } catch (error) {
-        alert(error.response.data)
-        console.error(error)
-      }
+    submitLogin() {
+      this.isLoading = true;
+      this.$store.dispatch("AUTH_USER", {
+        success: this.onSuccess,
+        fail: this.onFail,
+        data: {
+          mobileNum: this.mobile,
+          password: this.password,
+        },
+      });
     },
-    ...mapActions(['setUserData'])
+    onSuccess(data) {
+      (this.isLoading = false), localStorage.setItem("isLogined", true);
+      console.log(data);
+      this.$router.push({ name: "home" });
+    },
+
+    onFail(err) {
+      console.error(err),
+        (this.isLoading = false),
+        // alert(err.data),
+        (this.errMsg = err.data),
+        (this.errorMsgVisible = true);
+      setTimeout(this.resetFun, 3000);
+      localStorage.setItem("isLogined", false);
+    },
+    resetFun() {
+      (this.mobile = ""), (this.password = "");
+      this.errorMsgVisible = false;
+      this.errMsg = "";
+    },
+    // async submitLogin() {
+    //   try {
+    //     const userData = await userAuth.handleLogin(this.mobile, this.password)
+    //     localStorage.setItem('userData', JSON.stringify(userData))
+    //     this.setUserData(userData),
+    //     this.$router.push({ name: 'home'})
+    //   } catch (error) {
+    //     alert(error.response.data)
+    //     console.error(error)
+    //   }
+    // },
+    // ...mapActions(['setUserData'])
   },
-}
+};

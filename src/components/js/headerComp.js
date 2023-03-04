@@ -1,31 +1,33 @@
-import userAuth from '@/apiservice/userAuth'
+import toastMixin from "@/mixins/toastMixin";
+import userAuth from "@/apiservice/userAuth";
 export default {
-  components:{
-
-  },
+  components: {},
+  mixins: [toastMixin],
   data() {
     return {
       userData: {},
     };
   },
   methods: {
-    async handleLogout() {
-      try {
-        await userAuth.handleLogout();
-      } catch (error) {
-        console.error(error);
-      }
+    handleLogout() {
+      this.displayConfirmation("Confirm to Logout", "danger")
+        .then((response) => {
+          if (response) {
+            userAuth.handleLogout({
+              success: () => {
+              },
+              fail: (err) => {
+                console.error(err);
+              },
+            });
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    // openModalUpdate()
-    // {
-    //   this.showUpdate=true
-    // },
-    // openUpdateModal() {
-    //   this.selectedUser = this.userData;
-    //   this.$refs.updateModal.open();
-    // },
   },
   mounted() {
-    this.userData = JSON.parse(localStorage.getItem('userData')) || {};
-  }
+    this.userData = JSON.parse(localStorage.getItem("userData")) || {};
+  },
 };
