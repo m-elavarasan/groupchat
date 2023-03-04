@@ -1,3 +1,4 @@
+
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
@@ -45,3 +46,4 @@ router.beforeEach((to, from, next) => {
 });
 
 export default router;
+

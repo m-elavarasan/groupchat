@@ -97,7 +97,6 @@
     position: fixed;
     margin-bottom: 0%;
   }
-
   .col-3 {
     display: flex;
     justify-content: space-evenly;
@@ -110,4 +109,5 @@
     padding-bottom: 5%;
   }
 }
+
 </style>

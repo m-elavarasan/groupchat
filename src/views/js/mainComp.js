@@ -9,7 +9,6 @@ import CreateContactModal from '@/modals/CreateContactModal.vue'
 import ListGroupsModal from '@/modals/ListGroupsModal.vue';
 import EditContactModal from '@/modals/EditContactModal.vue';
 
-
   export default {
     name: 'MainView',
     components:{
@@ -87,5 +86,6 @@ import EditContactModal from '@/modals/EditContactModal.vue';
         //  this.fetchMessages() 
       // }
     },
+
     },
   }
