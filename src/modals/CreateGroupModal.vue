@@ -57,8 +57,6 @@ export default {
       })
       userGroups.createGroup(this.groupname, this.createdby, this.selectedMembers, {
         success: (response) => {
-          console.log('Group ' + this.groupname + ' Created')
-          console.log(this.createdby);
           this.fetchGroups({
             mobile: this.createdby,
             success: (groups) => {

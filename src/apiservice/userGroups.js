@@ -6,11 +6,9 @@ const API = axios.create({
 
 export default {
   fetchGroups(mobile, success, fail) {
-    console.log(mobile);
     API.get(`/showGroup?mobilenum=${mobile.mobile}`)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
           mobile.success(res.data);
         }
       })
@@ -88,7 +86,6 @@ export default {
     API.delete(`/deleteGroup?groupid=${groupId}`)
       .then(() => {
         success.success();
-        console.log(groupId + " Deleted Successfully");
       })
       .catch((error) => success.fail(error));
   },

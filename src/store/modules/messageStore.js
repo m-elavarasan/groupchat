@@ -42,7 +42,6 @@ export default {
   },
   actions: {
     FETCHALLMSG({ commit }, { data, success, fail }) {
-      console.log(data);
       userGroups.displayAllMsg(data, {
         success: (res) => {
           commit("setAllMsg", res);
@@ -57,11 +56,9 @@ export default {
     GETGROUPDATA({ commit }, { groupId }) {
       userGroups.fetchGroupMembers(groupId, {
         success: (res) => {
-          console.log(res);
           commit("setGroupData", res);
         },
         fail: (err) => {
-          console.log(err);
         },
       });
     },

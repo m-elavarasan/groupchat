@@ -30,7 +30,6 @@ export default {
       });
     },
     UPDAT_LOCAL_DATA({ commit }, data) {
-      console.log(data);
       commit("setUserData", data);
     },
     UPDATE_USER({ commit }, { success, fail, data }) {

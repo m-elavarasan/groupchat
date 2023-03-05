@@ -7,7 +7,7 @@ import CreateGroupModal from '@/modals/CreateGroupModal.vue'
 import ListContactModal from '@/modals/ListContactModal.vue'
 import CreateContactModal from '@/modals/CreateContactModal.vue'
 import ListGroupsModal from '@/modals/ListGroupsModal.vue';
-import EditContactModal from '@/modals/EditContactModal.vue';
+// import EditContactModal from '@/modals/EditContactModal.vue';
 
   export default {
     name: 'MainView',
@@ -20,7 +20,7 @@ import EditContactModal from '@/modals/EditContactModal.vue';
       CreateGroupModal,
       CreateContactModal,
       ListGroupsModal,
-      EditContactModal,
+      // EditContactModal,
     },
     data() {
       return {
@@ -49,20 +49,18 @@ import EditContactModal from '@/modals/EditContactModal.vue';
       },
       fail:(res)=>{
         this.isLoadingLocal=false
-        console.log("Error in fetch Message");
       }
     })
     },
     methods: {
       fetchmsg(groupId){
         this.isLoading=true
-        console.log('Emit works ' + groupId +' '+ this.user.userid);
         this.$store.dispatch("FETCHALLMSG", {
           data: {
             groupid: groupId,
             userid: this.user.userid,
           },
-          success: (res)=>{
+          success: ()=>{
             
             this.isLoading=false
           },
@@ -80,8 +78,6 @@ import EditContactModal from '@/modals/EditContactModal.vue';
         // const containerHeight = container.offsetHeight;
         // const contentHeight = container.scrollHeight;
         // const scrollPosition = container.scrollTop;
-        // console.log(containerHeight,scrollPosition,contentHeight, containerHeight+scrollPosition +1)
-        // console.log(containerHeight + scrollPosition >= contentHeight);
         // if (containerHeight + scrollPosition + 1>= contentHeight && !this.isLoading) {      
         //  this.fetchMessages() 
       // }
