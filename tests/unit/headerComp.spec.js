@@ -1,9 +1,9 @@
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 import HeaderCompVue from "@/components/HeaderComp.vue";
 
 let wrapper;
 beforeEach(() => {
-  wrapper = mount(HeaderCompVue, {
+  wrapper = shallowMount(HeaderCompVue, {
     mocks: {
     },
   });
