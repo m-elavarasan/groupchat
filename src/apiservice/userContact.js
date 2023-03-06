@@ -8,7 +8,6 @@ export default {
   fetchContact({ success, fail }) {
     API.get("/displayContacts")
       .then((response) => {
-        console.log(response.data);
         success(response.data);
       })
       .catch((error) => {
@@ -19,7 +18,6 @@ export default {
   createContact(phone, { success, fail }) {
     API.post(`/addUser?mobilenum=${phone}`)
       .then((response) => {
-        console.log(success);
         success(response.data);
       })
       .catch((error) => {
