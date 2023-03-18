@@ -87,7 +87,6 @@ export default {
           console.error(err);
         },
       });
-      console.log(this.files);
     },
     delGroup() {
       this.displayConfirmation("Are you sure to Delete", "danger")
@@ -95,7 +94,6 @@ export default {
           if (response) {
             userGroups.deleteGroup(this.group, {
               success: () => {
-                console.log(this.user.userid);
                 this.fetchGroups({
                   mobile: this.user.userid,
                   success: (groups) => {},

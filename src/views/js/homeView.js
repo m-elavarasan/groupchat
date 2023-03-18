@@ -25,7 +25,6 @@ export default {
     },
     onSuccess(data) {
       (this.isLoading = false), localStorage.setItem("isLogined", true);
-      console.log(data);
       this.$router.push({ name: "home" });
     },
 

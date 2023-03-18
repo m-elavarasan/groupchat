@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
     <b-modal id="edit-contact-modal" ref="modal" title="Edit Contact" @ok="handleOk">
       <b-form-group label="Useer ID" label-for="user-id" @submit.stop.prevent="handleSubmit">
@@ -45,7 +45,6 @@ export default {
           this.phone = ''
         },
         fail: (err) => {
-          console.log(err)
           this.displayErrorMessage(err.message, "Contact " + (this.phone) + ' Not Edited', "danger")
           this.phone = ''
         },
@@ -55,4 +54,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped></style> -->

@@ -66,7 +66,6 @@ export default {
     onSuccess(data) {
     },
     onFail(err) {
-      console.log(err);
     },
   }
 }
